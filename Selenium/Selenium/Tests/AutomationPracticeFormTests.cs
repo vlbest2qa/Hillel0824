@@ -44,9 +44,9 @@ namespace Selenium
 
         private void ClickElement(By selector)
         {
-            var isElement = _driver.FindElement(selector);
-            ScrollTo(isElement);
-            isElement.Click();
+            var elementForClick = _driver.FindElement(selector);
+            ScrollTo(elementForClick);
+            elementForClick.Click();
         }
         private void SelectElement(By selector, string value)
         {
@@ -54,12 +54,12 @@ namespace Selenium
             fieldToTest.SelectByText(value);
         }
 
-        public string FieldColor(By selector)
+        public string GetBorderColor(By selector)
         {
             var fieldTotest = _driver.FindElement(selector);
             ScrollTo(fieldTotest);
-            string x = fieldTotest.GetCssValue("border-color");
-            return x;
+            //string x = fieldTotest.GetCssValue("border-color");
+            return fieldTotest.GetCssValue("border-color");
         }
 
         [Test]
@@ -126,16 +126,16 @@ namespace Selenium
             ClickElement(By.Id("submit"));
 
             // Scroll to and verify validation for First Name
-            Assert.That(mandatoryFieldBorderColor, Is.EqualTo(FieldColor(By.Id("firstName"))), "First Name validation failed.");
+            Assert.That(mandatoryFieldBorderColor, Is.EqualTo(GetBorderColor(By.Id("firstName"))), "First Name validation failed.");
 
             // Scroll to and verify validation for Last Name
-            Assert.That(mandatoryFieldBorderColor, Is.EqualTo(FieldColor(By.Id("lastName"))), "Last Name validation failed.");
+            Assert.That(mandatoryFieldBorderColor, Is.EqualTo(GetBorderColor(By.Id("lastName"))), "Last Name validation failed.");
 
             // Scroll to and verify validation for Email
-            Assert.That(optionalFieldBorderColor, Is.EqualTo(FieldColor(By.Id("userEmail"))), "Email validation failed.");
+            Assert.That(optionalFieldBorderColor, Is.EqualTo(GetBorderColor(By.Id("userEmail"))), "Email validation failed.");
 
             // Scroll to and verify validation for Mobile Number
-            Assert.That(mandatoryFieldBorderColor, Is.EqualTo(FieldColor(By.Id("userNumber"))), "Mobile Number validation failed.");
+            Assert.That(mandatoryFieldBorderColor, Is.EqualTo(GetBorderColor(By.Id("userNumber"))), "Mobile Number validation failed.");
 
         }
 
