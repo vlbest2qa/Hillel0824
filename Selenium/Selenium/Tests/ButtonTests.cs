@@ -4,7 +4,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Interactions;
 using System;
 
-namespace SeleniumDemoQA.Tests
+namespace Selenium
 {
     public class ButtonTests
     {
