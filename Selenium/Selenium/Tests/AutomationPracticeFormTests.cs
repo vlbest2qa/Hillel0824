@@ -6,71 +6,13 @@ using System.Xml.Linq;
 
 namespace Selenium
 {
-    public class AutomationPracticeFormTests
+    public class AutomationPracticeFormTests : BaseClass
     {
-        public IWebDriver _driver;
-        IJavaScriptExecutor _js;
-
-        [SetUp]
-        public void Setup()
-        {
-            var options = new ChromeOptions();
-            options.AddArgument("window-size=1400,1200"); // Set desired resolution
-            _driver = new ChromeDriver(options);
-            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            _driver.Navigate().GoToUrl("https://demoqa.com/automation-practice-form");
-            _js = (IJavaScriptExecutor)_driver;
-        }
-
-        public void ScrollTo(IWebElement element)
-        {
-            _js.ExecuteScript("arguments[0].scrollIntoView(true);", element);
-        }
-
-        public void FillInput(By selector, string value)
-        {
-            var fieldToTest = _driver.FindElement(selector);
-            ScrollTo(fieldToTest);
-            fieldToTest.SendKeys(value);
-        }
-
-        //Мне кажется это уже излишним, но как вариант
-        public void FillAndEnter(By selector, string value)
-        {
-            var fieldTotest = _driver.FindElement(selector);
-            FillInput(selector, value);
-            fieldTotest.SendKeys(Keys.Enter);
-        }
-
-        public void ClickElement(By selector)
-        {
-            var elementForClick = _driver.FindElement(selector);
-            ScrollTo(elementForClick);
-            elementForClick.Click();
-        }
-        public void SelectElement(By selector, string value)
-        {
-            var fieldToTest = new SelectElement(_driver.FindElement(selector));
-            fieldToTest.SelectByText(value);
-        }
-
-        public string GetBorderColor(By selector)
-        {
-            var fieldTotest = _driver.FindElement(selector);
-            ScrollTo(fieldTotest);
-            return fieldTotest.GetCssValue("border-color");
-        }
-
-        public string GetTextElement(By selector)
-        {
-            var fieldTotest = _driver.FindElement(selector);
-            ScrollTo(fieldTotest);
-            return fieldTotest.Text;
-        }
-
         [Test]
         public void FillAndSubmitFormTest()
         {
+            _driver.Navigate().GoToUrl("https://demoqa.com/automation-practice-form");
+
             // Scroll to First Name and fill it out
             FillInput(By.Id("firstName"), "John");
 
@@ -123,7 +65,7 @@ namespace Selenium
         [Test]
         public void VerifyFormValidationTest()
         {
-
+            _driver.Navigate().GoToUrl("https://demoqa.com/automation-practice-form");
             // Check if the border color indicates an error
             string mandatoryFieldBorderColor = "rgb(220, 53, 69)"; // Red
             string optionalFieldBorderColor = "rgb(40, 167, 69)"; //Green
@@ -143,12 +85,6 @@ namespace Selenium
             // Scroll to and verify validation for Mobile Number
             Assert.That(mandatoryFieldBorderColor, Is.EqualTo(GetBorderColor(By.Id("userNumber"))), "Mobile Number validation failed.");
 
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            _driver.Quit();
         }
     }
 }
