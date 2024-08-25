@@ -8,7 +8,7 @@ namespace Selenium
 {
     public class AutomationPracticeFormTests
     {
-        private IWebDriver _driver;
+        public IWebDriver _driver;
         IJavaScriptExecutor _js;
 
         [SetUp]
@@ -22,12 +22,12 @@ namespace Selenium
             _js = (IJavaScriptExecutor)_driver;
         }
 
-        private void ScrollTo(IWebElement element)
+        public void ScrollTo(IWebElement element)
         {
             _js.ExecuteScript("arguments[0].scrollIntoView(true);", element);
         }
 
-        private void FillInput(By selector, string value)
+        public void FillInput(By selector, string value)
         {
             var fieldToTest = _driver.FindElement(selector);
             ScrollTo(fieldToTest);
@@ -35,20 +35,20 @@ namespace Selenium
         }
 
         //Мне кажется это уже излишним, но как вариант
-        private void FillAndEnter(By selector, string value)
+        public void FillAndEnter(By selector, string value)
         {
             var fieldTotest = _driver.FindElement(selector);
             FillInput(selector, value);
             fieldTotest.SendKeys(Keys.Enter);
         }
 
-        private void ClickElement(By selector)
+        public void ClickElement(By selector)
         {
             var elementForClick = _driver.FindElement(selector);
             ScrollTo(elementForClick);
             elementForClick.Click();
         }
-        private void SelectElement(By selector, string value)
+        public void SelectElement(By selector, string value)
         {
             var fieldToTest = new SelectElement(_driver.FindElement(selector));
             fieldToTest.SelectByText(value);
@@ -58,8 +58,14 @@ namespace Selenium
         {
             var fieldTotest = _driver.FindElement(selector);
             ScrollTo(fieldTotest);
-            //string x = fieldTotest.GetCssValue("border-color");
             return fieldTotest.GetCssValue("border-color");
+        }
+
+        public string GetTextElement(By selector)
+        {
+            var fieldTotest = _driver.FindElement(selector);
+            ScrollTo(fieldTotest);
+            return fieldTotest.Text;
         }
 
         [Test]
