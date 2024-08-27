@@ -6,7 +6,7 @@ using System.Xml.Linq;
 
 namespace Selenium
 {
-    public class TextBoxTests : AutomationPracticeFormTests
+    public class TextBoxTests : BaseClass
     {
 
         [Test]
