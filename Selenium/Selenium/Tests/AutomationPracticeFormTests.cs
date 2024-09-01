@@ -1,8 +1,5 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support.UI;
-using System.Runtime.CompilerServices;
-using System.Xml.Linq;
+using Selenium.Pages;
 
 namespace Selenium
 {
@@ -13,52 +10,23 @@ namespace Selenium
         {
             _driver.Navigate().GoToUrl("https://demoqa.com/automation-practice-form");
 
-            // Scroll to First Name and fill it out
-            FillInput(By.Id("firstName"), "John");
+            var formPage = new FormPage(_driver);
 
-            // Scroll to Last Name and fill it out
-            FillInput(By.Id("lastName"), "Doe");
+            formPage.FillFirstName("John");
+            formPage.FillLastName("Doe");
+            formPage.FillEmail("johndoe@example.com");
+            formPage.SelectGender("Male");
+            formPage.FillMobileNubmer("1234567890");
+            formPage.SelectDateOfBirth("May", "1990", "15");
+            formPage.SelectSubject("Maths");
+            formPage.SelectHobby("Sports");
+            formPage.FillCurrentAddress("123 Main Street, Anytown, USA");
+            formPage.SelectState("NCR");
+            formPage.SelectCity("Delhi");
+            formPage.ClickSubmitButton();
 
-            // Scroll to Email and fill it out
-            FillInput(By.Id("userEmail"), "johndoe@example.com");
-
-            // Scroll to Gender and set it
-            ClickElement(By.CssSelector("label[for='gender-radio-1']"));
-
-            // Scroll to Mobile Number and fill it out
-            FillInput(By.Id("userNumber"), "1234567890");
-
-            // Scroll to Date of Birth and set it
-            ClickElement(By.Id("dateOfBirthInput"));
-            SelectElement(By.ClassName("react-datepicker__month-select"), "May");
-            SelectElement(By.ClassName("react-datepicker__year-select"), "1990");
-            ClickElement(By.CssSelector(".react-datepicker__day--015:not(.react-datepicker__day--outside-month)"));
-
-            // Scroll to Subjects and fill it out
-            FillAndEnter(By.Id("subjectsInput"), "Maths");
-
-            // Scroll to Hobbies and select one
-            ClickElement(By.CssSelector("label[for='hobbies-checkbox-1']"));
-
-            // Scroll to Current Address and fill it out
-            FillInput(By.Id("currentAddress"), "123 Main Street, Anytown, USA");
-
-            // Scroll to State dropdown and select a state
-            ClickElement(By.Id("state"));
-            ClickElement(By.XPath("//div[text()='NCR']"));
-
-            // Scroll to City dropdown and select a city
-
-            ClickElement(By.Id("city"));
-            ClickElement(By.XPath("//div[text()='Delhi']"));
-
-            // Scroll to Submit button and click it
-            ClickElement(By.Id("submit"));
-
-            // Validate the Form Submission (e.g., check for the confirmation modal)
-            var confirmationModal = _driver.FindElement(By.Id("example-modal-sizes-title-lg"));
-            Assert.That(confirmationModal.Displayed);
-            Assert.That(confirmationModal.Text, Is.EqualTo("Thanks for submitting the form"));
+            Assert.That(formPage.IsConfirmationModalDisplayed());
+            Assert.That(formPage.GetConfirmationModalText(), Is.EqualTo("Thanks for submitting the form"));
         }
 
 
@@ -66,25 +34,22 @@ namespace Selenium
         public void VerifyFormValidationTest()
         {
             _driver.Navigate().GoToUrl("https://demoqa.com/automation-practice-form");
-            // Check if the border color indicates an error
-            string mandatoryFieldBorderColor = "rgb(220, 53, 69)"; // Red
-            string optionalFieldBorderColor = "rgb(40, 167, 69)"; //Green
 
-            // Scroll to and click the Submit button without filling any field
-            ClickElement(By.Id("submit"));
+            var formPage = new FormPage(_driver);
+            string mandatoryFieldBorderColor = "rgb(220, 53, 69)";
+            string optionalFieldBorderColor = "rgb(40, 167, 69)";
+            By firstNameInputBy = By.Id("firstName");
+            By lastNameInputBy = By.Id("lastName");
+            By emailInputBy = By.Id("userEmail");
+            By mobileNumberInputBy = By.Id("userNumber");
+            
+            formPage.ClickSubmitButton();
+            Thread.Sleep(1000);
 
-            // Scroll to and verify validation for First Name
-            Assert.That(mandatoryFieldBorderColor, Is.EqualTo(GetBorderColor(By.Id("firstName"))), "First Name validation failed.");
-
-            // Scroll to and verify validation for Last Name
-            Assert.That(mandatoryFieldBorderColor, Is.EqualTo(GetBorderColor(By.Id("lastName"))), "Last Name validation failed.");
-
-            // Scroll to and verify validation for Email
-            Assert.That(optionalFieldBorderColor, Is.EqualTo(GetBorderColor(By.Id("userEmail"))), "Email validation failed.");
-
-            // Scroll to and verify validation for Mobile Number
-            Assert.That(mandatoryFieldBorderColor, Is.EqualTo(GetBorderColor(By.Id("userNumber"))), "Mobile Number validation failed.");
-
+            Assert.That(mandatoryFieldBorderColor, Is.EqualTo(formPage.GetBorderColor(firstNameInputBy)), "First Name validation failed.");
+            Assert.That(mandatoryFieldBorderColor, Is.EqualTo(formPage.GetBorderColor(lastNameInputBy)), "Last Name validation failed.");
+            Assert.That(optionalFieldBorderColor, Is.EqualTo(formPage.GetBorderColor(emailInputBy)), "Email validation failed.");
+            Assert.That(mandatoryFieldBorderColor, Is.EqualTo(formPage.GetBorderColor(mobileNumberInputBy)), "Mobile Number validation failed.");
         }
     }
 }
