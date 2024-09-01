@@ -1,8 +1,5 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support.UI;
-using System.Runtime.CompilerServices;
-using System.Xml.Linq;
+using Selenium.Pages;
 
 namespace Selenium
 {
@@ -13,34 +10,34 @@ namespace Selenium
         
         public void FillAndSubmitTextBox()
         {
+            var formPage = new FormPage(_driver);
+
             _driver.Navigate().GoToUrl("https://demoqa.com/text-box");
+
+            By fullNameBy = By.Id("userName");
+            By emailBy = By.Id("userEmail");
+            By currentAddressBy = By.XPath("//*[@placeholder='Current Address']");
+            By permanentAddressBy = By.XPath("//*[@class='col-md-9 col-sm-12']//*[@id='permanentAddress']");
+            By nameOutputBy = By.Id("name");
+            By emailOutputBy = By.Id("email");
+            By currentOutputAddressBy = By.CssSelector("#output #currentAddress.mb-1");
+            By permanentOutputAddressBy = By.XPath("//*[@Id='output']//*[@id='permanentAddress']");
+            By submitButtonBy = By.Id("submit");
             string fullName = "Kotelevets Vladyslav";
             string email = "myemail@gmail.com";
             string currentAdress = "4B Serpova street, Kharkiv, Ukraine";
             string permanentAdress = "8 Berejnia street, Vasisheve, Ukraine";
 
-            // Scroll to Full Name and fill it out
-            FillInput(By.Id("userName"), fullName);
+            formPage.FillInput(fullNameBy, fullName);
+            formPage.FillInput(emailBy, email);
+            formPage.FillInput(currentAddressBy, currentAdress);
+            formPage.FillInput(permanentAddressBy, permanentAdress);
+            formPage.ClickElement(submitButtonBy);
 
-            // Scroll to Email and fill it out
-            FillInput(By.Id("userEmail"), email);
-
-            // Scroll to Current Address and fill it out
-            FillInput(By.XPath("//*[@placeholder='Current Address']"), currentAdress);
-
-            // Scroll to Permanent Address and fill it out
-            FillInput(By.XPath("//*[@class='col-md-9 col-sm-12']//*[@id='permanentAddress']"), permanentAdress);
-
-            // Scroll to Sublimit and set it
-            ClickElement(By.Id("submit"));
-
-            // Scroll to and verify validation
-
-            Assert.That("Name:" + fullName, Is.EqualTo(GetTextElement(By.Id("name"))), "Full Name validation failed.");
-            Assert.That("Email:" + email, Is.EqualTo(GetTextElement(By.Id("email"))), "Email validation failed.");
-            Assert.That("Current Address :" + currentAdress, Is.EqualTo(GetTextElement(By.CssSelector("#output #currentAddress.mb-1"))), "Current Address validation failed.");
-            Assert.That("Permananet Address :" + permanentAdress, Is.EqualTo(GetTextElement(By.XPath("//*[@Id='output']//*[@id='permanentAddress']"))), "Permananet Address validation failed.");
-
+            Assert.That("Name:" + fullName, Is.EqualTo(formPage.GetTextElement(nameOutputBy)), "Full Name validation failed.");
+            Assert.That("Email:" + email, Is.EqualTo(formPage.GetTextElement(emailOutputBy)), "Email validation failed.");
+            Assert.That("Current Address :" + currentAdress, Is.EqualTo(formPage.GetTextElement(currentOutputAddressBy)), "Current Address validation failed.");
+            Assert.That("Permananet Address :" + permanentAdress, Is.EqualTo(formPage.GetTextElement(permanentOutputAddressBy)), "Permananet Address validation failed.");
         }
     }
 }
