@@ -16,11 +16,11 @@ namespace Selenium.Pages
         private By clickMeButtonBy = By.XPath("//button[text()='Click Me']");
         private By clickMeButtonMassageBy = By.Id("dynamicClickMessage");
 
-        public void DoubleClickAction()
+
+        
+        public void DoubleClickTheButton()
         {
-            var doubleClickButton = _driver.FindElement(doubleClickButtonBy);
-            Actions actions = new Actions(_driver);
-            actions.DoubleClick(doubleClickButton).Perform();
+            DoubleClickAction(doubleClickButtonBy);
         }
 
         public bool IsDoubleClickMassegeDisplayed()
@@ -33,11 +33,9 @@ namespace Selenium.Pages
             return GetElementText(doubleClickMessageBy);
         }
 
-        public void RightClickAction()
+        public void RightClickTheButton()
         {
-            var rightClickButton = _driver.FindElement(rightClickButtonBy);
-            Actions actions = new Actions(_driver);
-            actions.ContextClick(rightClickButton).Perform();
+            RightClickAction(rightClickButtonBy);
         }
 
         public bool IsRightClickMassegeDisplayed()

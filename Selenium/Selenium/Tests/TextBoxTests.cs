@@ -12,7 +12,8 @@ namespace Selenium
         {
             // Arrange
             var textBoxPage = new TextBoxPage(_driver);
-            _driver.Navigate().GoToUrl("https://demoqa.com/text-box");
+
+            textBoxPage.NavigateTo("https://demoqa.com/text-box");
 
             string fullName = "Kotelevets Vladyslav";
             string email = "myemail@gmail.com";

@@ -11,10 +11,10 @@ namespace Selenium
         {
             // Arrange
             var buttonsPage = new ButtonsPage(_driver);
-            _driver.Navigate().GoToUrl("https://demoqa.com/buttons");
+            buttonsPage.NavigateTo("https://demoqa.com/buttons");
 
             // Act
-            buttonsPage.DoubleClickAction();
+            buttonsPage.DoubleClickTheButton();
 
             // Assert
             Assert.That(buttonsPage.IsDoubleClickMassegeDisplayed());
@@ -25,11 +25,11 @@ namespace Selenium
         public void RightClickButtonTest()
         {
             // Arrange
-            _driver.Navigate().GoToUrl("https://demoqa.com/buttons");
             var buttonsPage = new ButtonsPage(_driver);
+            buttonsPage.NavigateTo("https://demoqa.com/buttons");
 
             // Act
-            buttonsPage.RightClickAction();
+            buttonsPage.RightClickTheButton();
 
             // Assert
             Assert.That(buttonsPage.IsRightClickMassegeDisplayed());
@@ -40,8 +40,8 @@ namespace Selenium
         public void ClickMeButtonTest()
         {
             // Arrange
-            _driver.Navigate().GoToUrl("https://demoqa.com/buttons");
             var buttonsPage = new ButtonsPage(_driver);
+            buttonsPage.NavigateTo("https://demoqa.com/buttons");
 
             // Act
             buttonsPage.ClickMeAction();

@@ -15,6 +15,11 @@ namespace Selenium.Pages
         public IJavaScriptExecutor _js;
         public IWebDriver _driver;
 
+        public void NavigateTo(string link)
+        {
+            _driver.Navigate().GoToUrl(link);
+        }
+
         public void ScrollTo(IWebElement element)
         {
             _js.ExecuteScript("arguments[0].scrollIntoView(true);", element);
@@ -70,6 +75,20 @@ namespace Selenium.Pages
         {
             var confirmationModal = _driver.FindElement(element);
             return confirmationModal.Text;
+        }
+
+        public void DoubleClickAction(By selector)
+        {
+            var doubleClickButton = _driver.FindElement(selector);
+            Actions actions = new Actions(_driver);
+            actions.DoubleClick(doubleClickButton).Perform();
+        }
+
+        public void RightClickAction(By selector)
+        {
+            var rightClickButton = _driver.FindElement(selector);
+            Actions actions = new Actions(_driver);
+            actions.ContextClick(rightClickButton).Perform();
         }
     }
 }

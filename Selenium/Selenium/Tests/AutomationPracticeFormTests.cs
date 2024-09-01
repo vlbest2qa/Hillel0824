@@ -8,10 +8,11 @@ namespace Selenium
         [Test]
         public void FillAndSubmitFormTest()
         {
-            _driver.Navigate().GoToUrl("https://demoqa.com/automation-practice-form");
-
+            // Arrange
             var formPage = new FormPage(_driver);
+            formPage.NavigateTo("https://demoqa.com/automation-practice-form");
 
+            // Act
             formPage.FillFirstName("John");
             formPage.FillLastName("Doe");
             formPage.FillEmail("johndoe@example.com");
@@ -25,6 +26,7 @@ namespace Selenium
             formPage.SelectCity("Delhi");
             formPage.ClickSubmitButton();
 
+            // Assert
             Assert.That(formPage.IsConfirmationModalDisplayed());
             Assert.That(formPage.GetConfirmationModalText(), Is.EqualTo("Thanks for submitting the form"));
         }
@@ -33,19 +35,22 @@ namespace Selenium
         [Test]
         public void VerifyFormValidationTest()
         {
-            _driver.Navigate().GoToUrl("https://demoqa.com/automation-practice-form");
-
+            // Arrange
             var formPage = new FormPage(_driver);
+            formPage.NavigateTo("https://demoqa.com/automation-practice-form");
+
             string mandatoryFieldBorderColor = "rgb(220, 53, 69)";
             string optionalFieldBorderColor = "rgb(40, 167, 69)";
             By firstNameInputBy = By.Id("firstName");
             By lastNameInputBy = By.Id("lastName");
             By emailInputBy = By.Id("userEmail");
             By mobileNumberInputBy = By.Id("userNumber");
-            
+
+            // Act
             formPage.ClickSubmitButton();
             Thread.Sleep(1000);
 
+            // Assert
             Assert.That(mandatoryFieldBorderColor, Is.EqualTo(formPage.GetBorderColor(firstNameInputBy)), "First Name validation failed.");
             Assert.That(mandatoryFieldBorderColor, Is.EqualTo(formPage.GetBorderColor(lastNameInputBy)), "Last Name validation failed.");
             Assert.That(optionalFieldBorderColor, Is.EqualTo(formPage.GetBorderColor(emailInputBy)), "Email validation failed.");

@@ -10,7 +10,7 @@ namespace Selenium
         {
             // Arrange
             var checkBoxPage = new CheckBoxPage(_driver);
-            _driver.Navigate().GoToUrl("https://demoqa.com/checkbox");
+            checkBoxPage.NavigateTo("https://demoqa.com/checkbox");
 
             string validationChoise = "excelFile";
 
