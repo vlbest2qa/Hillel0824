@@ -9,10 +9,15 @@
             int[] numbers = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
             // Act
-            int sum = 0; // Replace 0 with the code to calculate sum
+            int sum = 0;
+
+            foreach (int number in numbers)
+            {
+                sum += number;
+            }
 
             // Assert
-            Assert.That(sum, Is.EqualTo(55)); // 1+2+...+10 = 55
+            Assert.That(sum, Is.EqualTo(55));
         }
 
         [Test]
@@ -23,7 +28,14 @@
             int[] expectedReversed = new int[] { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 };
 
             // Act
-            int[] reversedArray = null; // Replace null with code to reverse
+            int[] reversedArray = new int[numbers.Length];
+
+            int count = numbers.Length - 1;
+            for (int i = 0; i < numbers.Length; i++)
+            {
+                reversedArray[count] = numbers[i];
+                count--;
+            }
 
             // Assert
             Assert.That(reversedArray, Is.EqualTo(expectedReversed));
@@ -37,10 +49,10 @@
             string newName = "Bob";
 
             // Act
-            // Implement replacement
+            students[1] = newName;
 
             // Assert
-            Assert.That(students[1], Is.EqualTo(newName)); // Second student's name should be "Bob"
+            Assert.That(students[1], Is.EqualTo(newName));
         }
 
         [TestCase("Sue", true)]
@@ -51,7 +63,7 @@
             string[] students = new string[] { "John", "Jane", "Bill", "Sue", "Anna" };
 
             // Act
-            bool exists = false; // Replace false with code to get to know if nameToCheck exists in students []
+            bool exists = students.Contains(nameToCheck);
 
             // Assert
             Assert.That(exists, Is.EqualTo(existsExpected));
@@ -66,7 +78,11 @@
 
             // Act
             List<int> doubledNumbers = new();
-            // Implement code to fill doubledNumbers with values
+
+            foreach (int number in numbers)
+            {
+                doubledNumbers.Add(number * 2);
+            }
 
             // Assert
             Assert.That(doubledNumbers, Is.EqualTo(expectedDoubled));
@@ -80,7 +96,13 @@
             List<int> expectedList = new List<int> { 1, 3, 5 };
 
             // Act
-            // Implement code to remove extra items
+            for (int i = numbers.Count - 1; i >= 0; i--)
+            {
+                if (numbers[i] % 2 == 0)
+                {
+                    numbers.RemoveAt(i);
+                }
+            }
 
             // Assert
             Assert.That(numbers, Is.EqualTo(expectedList));
@@ -95,7 +117,7 @@
             List<string> expectedList = new List<string> { "Lion", "Tiger", "Penguin", "Elephant", "Giraffe", "Zebra" };
 
             // Act
-            // Implement code to add new value
+            animals.Insert(2, newAnimal);
 
             // Assert
             Assert.That(animals, Is.EqualTo(expectedList));
@@ -109,7 +131,7 @@
             List<string> expectedList = new List<string> { "Elephant", "Giraffe", "Lion", "Tiger", "Zebra" };
 
             // Act
-            // Implement code to sort list
+            animals.Sort();
 
             // Assert
             Assert.That(animals, Is.EqualTo(expectedList));
