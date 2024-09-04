@@ -22,7 +22,8 @@ namespace Selenium.Pages
 
         public void ScrollTo(IWebElement element)
         {
-            _js.ExecuteScript("arguments[0].scrollIntoView(true);", element);
+            //_js.ExecuteScript("arguments[0].scrollIntoView(true);", element);
+            _js.ExecuteScript("arguments[0].scrollIntoView(false);", element);
         }
 
         public void FillInput(By selector, string value)
@@ -89,6 +90,38 @@ namespace Selenium.Pages
             var rightClickButton = _driver.FindElement(selector);
             Actions actions = new Actions(_driver);
             actions.ContextClick(rightClickButton).Perform();
+        }
+
+        public IWebElement FindElement(By by)
+        {
+            IWebElement element = _driver.FindElement(by);
+            return element;
+        }
+
+        public void WaitForElementVisible(By by, int sec = 3)
+        {
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(sec));
+            wait.Until(d => d.FindElement(by).Displayed);
+        }
+
+        public void WaitForElementInvisible(By by)
+        {
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(3));
+            wait.Until(d => !d.FindElement(by).Displayed);
+        }
+
+        public void WaitForElementEnabled(By by)
+        {
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(3));
+            wait.Until(d => d.FindElement(by).Displayed && d.FindElement(by).Enabled);
+        }
+        public void WaitAndClickElement(By selector)
+        {
+            WaitForElementVisible(selector);
+
+            IWebElement element = FindElement(selector);
+            ScrollTo(element);
+            element.Click();
         }
     }
 }
