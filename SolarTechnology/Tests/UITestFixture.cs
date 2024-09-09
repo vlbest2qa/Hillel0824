@@ -4,7 +4,7 @@ using OpenQA.Selenium;
 
 namespace SolarTechnology.Tests
 {
-    public class BaseClass
+    public class UITestFixture
     {
         public IWebDriver _driver;
         public IJavaScriptExecutor _js;
