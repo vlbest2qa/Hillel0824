@@ -1,10 +1,4 @@
 ﻿using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace SolarTechnology.Pages
 {
     public class HomePage : BasePage
@@ -13,20 +7,36 @@ namespace SolarTechnology.Pages
         {
         }
 
-        private By solarPanelsLink = By.CssSelector(".list-inline [href='/shop/solar-panels']");
+        private By pageTitleBy = By.XPath("//h1");
+        private string homePageUrl = "https://solartechnology.com.ua/shop";
+        private string homePageTitle = "Магазин";
 
-        public void OpenPage()
+        public void OpenHomePage()
         {
-            NavigateTo("https://solartechnology.com.ua/shop");
-
+            NavigateTo(homePageUrl);
             WaitForLoader();
         }
 
-        public void OpenSolarPanels()
+        public void OpenHomePageMenu(string href)
         {
-            WaitAndClickElement(solarPanelsLink);
-
+            By element = By.CssSelector($".list-inline [href='{href}']");
+            WaitAndClickElement(element);
             WaitForLoader();
+        }
+
+        public bool IsCurentUrlEqualHome()
+        {
+            return GetCurrentUrl() == homePageUrl;
+        }
+
+        public int CountTitleElement()
+        {
+            return CountFindElements(pageTitleBy);
+        }
+
+        public bool IsTitleEqualHome()
+        {
+            return FindElement(pageTitleBy).Text == homePageTitle;
         }
     }
 }

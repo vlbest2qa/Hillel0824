@@ -14,7 +14,6 @@ namespace SolarTechnology.Pages
         public IJavaScriptExecutor _js;
         public IWebDriver _driver;
 
-
         public void NavigateTo(string link)
         {
             _driver.Navigate().GoToUrl(link);
@@ -37,7 +36,6 @@ namespace SolarTechnology.Pages
             wait.Until(d => !d.FindElement(by).Displayed);
         }
 
-        
         public void WaitForLoader()
         {
             By loader = By.Id("p_prldr");
@@ -48,9 +46,8 @@ namespace SolarTechnology.Pages
         public void WaitAndClickElement(By selector)
         {
             WaitForElementVisible(selector);
-
-            IWebElement element = FindElement(selector);
             ScrollToBottom(FindElement(selector));
+            IWebElement element = FindElement(selector);
             element.Click();
         }
 
@@ -63,6 +60,18 @@ namespace SolarTechnology.Pages
         public IReadOnlyCollection<IWebElement> FindElements(By by)
         {
             var element = _driver.FindElements(by);
+            return element;
+        }
+
+        public int CountFindElements(By by)
+        {
+            var elements = FindElements(by);
+            return elements.Count;
+        }
+
+        public string GetCurrentUrl()
+        {
+            var element = _driver.Url;
             return element;
         }
     }

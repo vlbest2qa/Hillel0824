@@ -1,9 +1,4 @@
 ﻿using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SolarTechnology.Pages
 {
@@ -13,6 +8,12 @@ namespace SolarTechnology.Pages
         {
         }
 
+        private By removeProductButtonBy = By.CssSelector("span.remove-from-cart");
 
+        public void RemoveProductFromCartIfOne()
+        {
+            WaitAndClickElement(removeProductButtonBy);
+            WaitForLoader();
+        }
     }
 }

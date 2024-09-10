@@ -1,9 +1,4 @@
 ﻿using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SolarTechnology.Pages
 {
@@ -13,25 +8,40 @@ namespace SolarTechnology.Pages
         {
         }
 
-        private By productTitle = By.CssSelector(".card-content .list-product-title");
-        private By filterButton = By.CssSelector(".filter-button");
-        
-        public int CountFindProducts()
+        private By productAreaBy = By.CssSelector(".card");
+        private By filterButtonBy = By.CssSelector(".filter-button");
+        private By addCartButtonBy = By.CssSelector(".add-product-to-cart");
+        private By cartModalBy = By.CssSelector("div#cart-modal");
+        private By goToCartInModalButtonBy = By.XPath("//a[contains(text(), 'Оформити замовлення')]");
+
+        public int CountProducts()
         {
-            var products = FindElements(productTitle);
-            return products.Count;
+            return CountFindElements(productAreaBy);
         }
 
         public void OpenFilters()
         {
-            WaitAndClickElement(filterButton);
+            WaitAndClickElement(filterButtonBy);
         }
 
-        public void CheckBrand(string brand)
+        public void CheckBrandInFilters(string brand)
         {
             var brandCheckbox = By.XPath($"//*[@id='checkbox-brand']/following-sibling::span[text()='{brand}']");
             WaitAndClickElement(brandCheckbox);
+            WaitForLoader();
+        }
 
+        public void AddToCartSecondProduct()
+        {
+            var products = FindElements(productAreaBy);
+            IWebElement secondProduct = products.ElementAt(1).FindElement(addCartButtonBy);
+            secondProduct.Click();
+            WaitForElementVisible(cartModalBy);
+        }
+
+        public void GoToCartInModal()
+        {
+            WaitAndClickElement(goToCartInModalButtonBy);
             WaitForLoader();
         }
     }
