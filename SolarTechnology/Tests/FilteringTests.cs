@@ -12,7 +12,7 @@ namespace SolarTechnology.Tests
             var homePage = new HomePage(_driver);
 
             homePage.OpenHomePage();
-            homePage.OpenHomePageMenu("/shop/solar-panels");
+            homePage.OpenSolarPanels();
 
             // Act
             int productsBeforeFiltered = catalogPage.CountProducts();
