@@ -1,7 +1,4 @@
-﻿using OpenQA.Selenium;
-using Selenium.Pages;
-
-namespace Selenium
+﻿namespace Selenium
 {
     public class TextBoxTests : BaseClass
     {
@@ -13,7 +10,7 @@ namespace Selenium
             // Arrange
             var textBoxPage = new TextBoxPage(_driver);
 
-            textBoxPage.NavigateTo("https://demoqa.com/text-box");
+            textBoxPage.Open();
 
             string fullName = "Kotelevets Vladyslav";
             string email = "myemail@gmail.com";

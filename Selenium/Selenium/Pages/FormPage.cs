@@ -1,9 +1,10 @@
 ﻿using OpenQA.Selenium;
 
-namespace Selenium.Pages
+namespace Selenium
 {
-    internal class FormPage : BasePage
+    internal class FormPage
     {
+        private string pageUrl = "https://demoqa.com/automation-practice-form";
         private By firstNameInputBy = By.Id("firstName");
         private By lastNameInputBy = By.Id("lastName");
         private By emailInputBy = By.Id("userEmail");
@@ -17,24 +18,32 @@ namespace Selenium.Pages
         private By cityDropdownBy = By.Id("city");
         private By submitButtonBy = By.Id("submit");
         private By confirmationModalBy = By.Id("example-modal-sizes-title-lg");
+        private string border = "border-color";
 
-        public FormPage(IWebDriver driver) : base(driver)
+        public FormPage(IWebDriver driver)
         {
+            _driver = driver;
+        }
+        public IWebDriver _driver;
+
+        public void Open()
+        {
+            _driver.NavigateTo(pageUrl);
         }
 
         public void FillFirstName(string firstName)
         {
-            FillInput(firstNameInputBy, firstName);
+            _driver.FillInput(firstNameInputBy, firstName);
         }
-        
+
         public void FillLastName(string lastName)
         {
-            FillInput(lastNameInputBy, lastName);
+            _driver.FillInput(lastNameInputBy, lastName);
         }
         
         public void FillEmail(string email)
         {
-            FillInput(emailInputBy, email);
+            _driver.FillInput(emailInputBy, email);
         }
 
         public void SelectGender(string gender)
@@ -58,23 +67,22 @@ namespace Selenium.Pages
 
         public void FillMobileNubmer(string mobileNumber)
         {
-            FillInput(mobileNumberInputBy, mobileNumber);
+            _driver.FillInput(mobileNumberInputBy, mobileNumber);
         }
 
         public void SelectDateOfBirth(string month, string year, string day)
         {
             By dayPickerBy = By.CssSelector($".react-datepicker__day--0{day}:not(.react-datepicker__day--outside-month)");
-            ClickElement(dateOfBirthInputBy);
-            SelectDefinedElement(monthPickerBy, month);
-            SelectDefinedElement(yearPickerBy, year);
-            ClickElement(dayPickerBy);
+            _driver.ClickElement(dateOfBirthInputBy);
+            _driver.SelectDefinedElement(monthPickerBy, month);
+            _driver.SelectDefinedElement(yearPickerBy, year);
+            _driver.ClickElement(dayPickerBy);
         }
 
         public void SelectSubject(string value)
         {
-            var fieldTotest = _driver.FindElement(subjectsInputBy);
-            FillInput(subjectsInputBy, value);
-            fieldTotest.SendKeys(Keys.Enter);
+            _driver.FillInput(subjectsInputBy, value);
+            _driver.FindElement(subjectsInputBy).SendKeys(Keys.Enter);
         }
 
         public void SelectHobby(string hobby)
@@ -98,36 +106,39 @@ namespace Selenium.Pages
 
         public void FillCurrentAddress(string currentAddress)
         {
-            FillInput(currentAddressInputBy, currentAddress);
+            _driver.FillInput(currentAddressInputBy, currentAddress);
         }
 
         public void SelectState(string state)
         {
-            ClickElement(stateDropdownBy);
-            ClickElement(By.XPath($"//div[text()='{state}']"));
+            _driver.ClickElement(stateDropdownBy);
+            _driver.ClickElement(By.XPath($"//div[text()='{state}']"));
         }
 
         public void SelectCity(string city)
         {
-            ClickElement(cityDropdownBy);
-            ClickElement(By.XPath($"//div[text()='{city}']"));
+            _driver.ClickElement(cityDropdownBy);
+            _driver.ClickElement(By.XPath($"//div[text()='{city}']"));
         }
 
         public void ClickSubmitButton()
         {
-            ClickElement(submitButtonBy);
+            _driver.ClickElement(submitButtonBy);
         }
 
         public string GetConfirmationModalText()
         {
-            var confirmationModal = _driver.FindElement(confirmationModalBy);
-            return confirmationModal.Text;
+            return _driver.GetTextElement(confirmationModalBy);
         }
 
         public bool IsConfirmationModalDisplayed()
         {
-            var confirmationModal = _driver.FindElement(confirmationModalBy);
-            return confirmationModal.Displayed;
+            return _driver.IsElenentDisplayed(confirmationModalBy);
+        }
+
+        public string GetBorderColor(By selector)
+        {
+            return _driver.GetElementColor(selector, border);
         }
     }
 }

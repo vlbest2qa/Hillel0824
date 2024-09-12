@@ -1,8 +1,4 @@
-﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Interactions;
-using Selenium.Pages;
-
-namespace Selenium
+﻿namespace Selenium
 {
     public class ButtonTests : BaseClass
     {
@@ -11,7 +7,7 @@ namespace Selenium
         {
             // Arrange
             var buttonsPage = new ButtonsPage(_driver);
-            buttonsPage.NavigateTo("https://demoqa.com/buttons");
+            buttonsPage.Open();
 
             // Act
             buttonsPage.DoubleClickTheButton();
@@ -26,7 +22,7 @@ namespace Selenium
         {
             // Arrange
             var buttonsPage = new ButtonsPage(_driver);
-            buttonsPage.NavigateTo("https://demoqa.com/buttons");
+            buttonsPage.Open();
 
             // Act
             buttonsPage.RightClickTheButton();
@@ -41,7 +37,7 @@ namespace Selenium
         {
             // Arrange
             var buttonsPage = new ButtonsPage(_driver);
-            buttonsPage.NavigateTo("https://demoqa.com/buttons");
+            buttonsPage.Open();
 
             // Act
             buttonsPage.ClickMeAction();

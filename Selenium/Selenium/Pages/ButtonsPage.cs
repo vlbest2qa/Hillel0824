@@ -1,14 +1,17 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 
-namespace Selenium.Pages
+namespace Selenium
 {
-    internal class ButtonsPage : BasePage
+    internal class ButtonsPage
     {
-        public ButtonsPage(IWebDriver driver) : base(driver)
+        public ButtonsPage(IWebDriver driver)
         {
+            _driver = driver;
         }
+        public IWebDriver _driver;
 
+        private string pageUrl = "https://demoqa.com/buttons";
         private By doubleClickButtonBy = By.Id("doubleClickBtn");
         private By doubleClickMessageBy = By.Id("doubleClickMessage");
         private By rightClickButtonBy = By.Id("rightClickBtn");
@@ -16,51 +19,54 @@ namespace Selenium.Pages
         private By clickMeButtonBy = By.XPath("//button[text()='Click Me']");
         private By clickMeButtonMassageBy = By.Id("dynamicClickMessage");
 
+        public void Open()
+        {
+            _driver.NavigateTo(pageUrl);
+        }
 
-        
         public void DoubleClickTheButton()
         {
-            DoubleClickAction(doubleClickButtonBy);
+            _driver.DoubleClickAction(doubleClickButtonBy);
         }
 
         public bool IsDoubleClickMassegeDisplayed()
         {
-            return IsElenentDisplayed(doubleClickMessageBy);
+            return _driver.IsElenentDisplayed(doubleClickMessageBy);
         }
 
         public string DoubleClickMassegeText()
         {
-            return GetElementText(doubleClickMessageBy);
+            return _driver.GetTextElement(doubleClickMessageBy);
         }
 
         public void RightClickTheButton()
         {
-            RightClickAction(rightClickButtonBy);
+            _driver.RightClickAction(rightClickButtonBy);
         }
 
         public bool IsRightClickMassegeDisplayed()
         {
-            return IsElenentDisplayed(rightClickMessageBy);
+            return _driver.IsElenentDisplayed(rightClickMessageBy);
         }
 
         public string RightClickMassegeText()
         {
-            return GetElementText(rightClickMessageBy);
+            return _driver.GetTextElement(rightClickMessageBy);
         }
         
         public void ClickMeAction() 
         {
-            ClickElement(clickMeButtonBy); 
+            _driver.ClickElement(clickMeButtonBy); 
         }
 
         public bool IsClickMeMassegeDisplayed()
         {
-            return IsElenentDisplayed(clickMeButtonMassageBy);
+            return _driver.IsElenentDisplayed(clickMeButtonMassageBy);
         }
 
         public string ClickMeMassegeText()
         {
-            return GetElementText(clickMeButtonMassageBy);
+            return _driver.GetTextElement(clickMeButtonMassageBy);
         }
 
     }

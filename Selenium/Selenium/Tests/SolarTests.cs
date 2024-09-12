@@ -1,8 +1,4 @@
-﻿using OpenQA.Selenium;
-using Selenium;
-using Selenium.Pages;
-
-namespace Selenium
+﻿namespace Selenium
 {
     public class SolarTests : BaseClass
     {
