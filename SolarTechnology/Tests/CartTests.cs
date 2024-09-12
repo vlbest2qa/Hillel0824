@@ -12,10 +12,10 @@ namespace SolarTechnology.Tests
             var homePage = new HomePage(_driver);
             var cartPage = new CartPage(_driver);
             homePage.OpenHomePage();
-            homePage.OpenHomePageMenu("/shop/solar-cable");
+            homePage.OpenSolarCabels();
 
             //Act
-            catalogPage.AddToCartSecondProduct();
+            catalogPage.AddToCartOneProduct(1);
             catalogPage.GoToCartInModal();
             cartPage.RemoveProductFromCartIfOne();
 
@@ -24,8 +24,8 @@ namespace SolarTechnology.Tests
             {
                 //в процессе появлялись новые проверки. Оставил все, хотя IsCurentUrlEqualHome думаю было бы достаточно
                 Assert.That(homePage.IsCurentUrlEqualHome(), Is.EqualTo(true), "Current url NOT equal home url.");
-                Assert.That(homePage.CountTitleElement(), Is.Not.EqualTo(0), "Not found title on the page.");
-                Assert.That(homePage.IsTitleEqualHome(), Is.EqualTo(true), "Current title not equal home title.");
+                Assert.That(homePage.IsTitleDisplayed(), Is.EqualTo(true), "Not found title on the page.");
+                Assert.That(homePage.GetTitlelHome(), Is.EqualTo("Магазин"), "Current title not equal home title.");
             });
         }
     }

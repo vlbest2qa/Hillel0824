@@ -31,10 +31,10 @@ namespace SolarTechnology.Pages
             WaitForLoader();
         }
 
-        public void AddToCartSecondProduct()
+        public void AddToCartOneProduct(int productIndex)
         {
             var products = FindElements(productAreaBy);
-            IWebElement secondProduct = products.ElementAt(1).FindElement(addCartButtonBy);
+            IWebElement secondProduct = products.ElementAt(productIndex).FindElement(addCartButtonBy);
             secondProduct.Click();
             WaitForElementVisible(cartModalBy);
         }

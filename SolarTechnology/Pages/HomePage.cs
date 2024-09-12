@@ -10,6 +10,9 @@ namespace SolarTechnology.Pages
         private By pageTitleBy = By.XPath("//h1");
         private string homePageUrl = "https://solartechnology.com.ua/shop";
         private string homePageTitle = "Магазин";
+        private By solarPanelsInMenu = By.CssSelector($".list-inline [href='/shop/solar-panels']");
+        private By solarCabelsInMenu = By.CssSelector($".list-inline [href='/shop/solar-cable']");
+
 
         public void OpenHomePage()
         {
@@ -17,10 +20,15 @@ namespace SolarTechnology.Pages
             WaitForLoader();
         }
 
-        public void OpenHomePageMenu(string href)
+        public void OpenSolarPanels()
         {
-            By element = By.CssSelector($".list-inline [href='{href}']");
-            WaitAndClickElement(element);
+            WaitAndClickElement(solarPanelsInMenu);
+            WaitForLoader();
+        }
+
+        public void OpenSolarCabels()
+        {
+            WaitAndClickElement(solarCabelsInMenu);
             WaitForLoader();
         }
 
@@ -29,14 +37,14 @@ namespace SolarTechnology.Pages
             return GetCurrentUrl() == homePageUrl;
         }
 
-        public int CountTitleElement()
+        public bool IsTitleDisplayed()
         {
-            return CountFindElements(pageTitleBy);
+            return IsElenentDisplayed(pageTitleBy);
         }
 
-        public bool IsTitleEqualHome()
+        public string GetTitlelHome()
         {
-            return FindElement(pageTitleBy).Text == homePageTitle;
+            return FindElement(pageTitleBy).Text;
         }
     }
 }

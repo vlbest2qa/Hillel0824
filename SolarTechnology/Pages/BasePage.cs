@@ -74,5 +74,11 @@ namespace SolarTechnology.Pages
             var element = _driver.Url;
             return element;
         }
+
+        public bool IsElenentDisplayed(By element)
+        {
+            var confirmationModal = _driver.FindElement(element);
+            return confirmationModal.Displayed;
+        }
     }
 }
