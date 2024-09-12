@@ -2,7 +2,7 @@
 
 namespace Selenium
 {
-    internal class SolarPage : BasePage
+    internal class SolarPage
     {
         private string pageUrl = "https://solartechnology.com.ua/shop";
         private By loader = By.Id("p_prldr");
@@ -10,9 +10,11 @@ namespace Selenium
         private By filterButton = By.CssSelector(".filter-button");
         private By productTitle = By.CssSelector(".card-content .list-product-title");
 
-        public SolarPage(IWebDriver driver) : base(driver)
+        public SolarPage(IWebDriver driver)
         {
+            _driver = driver;
         }
+        public IWebDriver _driver;
 
         public void Open()
         {
@@ -23,26 +25,26 @@ namespace Selenium
 
         public void WaitForLoader()
         {
-            WaitForElementVisible(loader);
-            WaitForElementInvisible(loader);
+            _driver.WaitForElementVisible(loader);
+            _driver.WaitForElementInvisible(loader);
         }
 
         public void OpenSolarPanels()
         {
-            WaitAndClickElement(solarPanelsLink);
+            _driver.WaitAndClickElement(solarPanelsLink);
 
             WaitForLoader();
         }
 
         public void OpenFilters()
         {
-            WaitAndClickElement(filterButton);
+            _driver.WaitAndClickElement(filterButton);
         }
 
         public void CheckBrand(string brand)
         {
             var brandCheckbox = By.XPath($"//*[@id='checkbox-brand']/following-sibling::span[text()='{brand}']");
-            WaitAndClickElement(brandCheckbox);
+            _driver.WaitAndClickElement(brandCheckbox);
 
             WaitForLoader();
         }

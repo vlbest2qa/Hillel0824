@@ -2,11 +2,13 @@
 
 namespace Selenium
 {
-    internal class TextBoxPage : BasePage
+    internal class TextBoxPage
     {
-        public TextBoxPage(IWebDriver driver) : base(driver)
+        public TextBoxPage(IWebDriver driver)
         {
+            _driver = driver;
         }
+        public IWebDriver _driver;
 
         private string pageUrl = "https://demoqa.com/text-box";
         By fullNameBy = By.Id("userName");
@@ -26,48 +28,47 @@ namespace Selenium
 
         public void FillFullName(string fullName)
         {
-            FillInput(fullNameBy, fullName);
+            _driver.FillInput(fullNameBy, fullName);
         }
 
         public void FillEmail(string email)
         {
-            FillInput(emailBy, email);
+            _driver.FillInput(emailBy, email);
         }
 
         public void FillCurrentAdress(string currentAdress)
         {
-            FillInput(currentAddressBy, currentAdress);
+            _driver.FillInput(currentAddressBy, currentAdress);
         }
 
         public void FillPermanentAdress(string permanentAdress)
         {
-            FillInput(permanentAddressBy, permanentAdress);
+            _driver.FillInput(permanentAddressBy, permanentAdress);
         }
 
         public void ClickSubmitButton()
         {
-            ClickElement(submitButtonBy);
+            _driver.ClickElement(submitButtonBy);
         }
         
         public string GetOutputName()
         {
-            return GetTextElement(nameOutputBy);
+            return _driver.GetTextElement(nameOutputBy);
         }
         
         public string GetOutputEmail()
         {
-            return GetTextElement(emailOutputBy);
+            return _driver.GetTextElement(emailOutputBy);
         }
         
         public string GetCurrentAdress()
         {
-            return GetTextElement(currentOutputAddressBy);
+            return _driver.GetTextElement(currentOutputAddressBy);
         }
         
         public string GetPermanentAdress()
         {
-            return GetTextElement(permanentOutputAddressBy);
+            return _driver.GetTextElement(permanentOutputAddressBy);
         }
-
     }
 }

@@ -3,11 +3,13 @@ using OpenQA.Selenium.Interactions;
 
 namespace Selenium
 {
-    internal class ButtonsPage : BasePage
+    internal class ButtonsPage
     {
-        public ButtonsPage(IWebDriver driver) : base(driver)
+        public ButtonsPage(IWebDriver driver)
         {
+            _driver = driver;
         }
+        public IWebDriver _driver;
 
         private string pageUrl = "https://demoqa.com/buttons";
         private By doubleClickButtonBy = By.Id("doubleClickBtn");
@@ -24,7 +26,7 @@ namespace Selenium
 
         public void DoubleClickTheButton()
         {
-            DoubleClickAction(doubleClickButtonBy);
+            _driver.DoubleClickAction(doubleClickButtonBy);
         }
 
         public bool IsDoubleClickMassegeDisplayed()
@@ -34,12 +36,12 @@ namespace Selenium
 
         public string DoubleClickMassegeText()
         {
-            return _driver.GetElementText(doubleClickMessageBy);
+            return _driver.GetTextElement(doubleClickMessageBy);
         }
 
         public void RightClickTheButton()
         {
-            RightClickAction(rightClickButtonBy);
+            _driver.RightClickAction(rightClickButtonBy);
         }
 
         public bool IsRightClickMassegeDisplayed()
@@ -49,12 +51,12 @@ namespace Selenium
 
         public string RightClickMassegeText()
         {
-            return _driver.GetElementText(rightClickMessageBy);
+            return _driver.GetTextElement(rightClickMessageBy);
         }
         
         public void ClickMeAction() 
         {
-            ClickElement(clickMeButtonBy); 
+            _driver.ClickElement(clickMeButtonBy); 
         }
 
         public bool IsClickMeMassegeDisplayed()
@@ -64,7 +66,7 @@ namespace Selenium
 
         public string ClickMeMassegeText()
         {
-            return _driver.GetElementText(clickMeButtonMassageBy);
+            return _driver.GetTextElement(clickMeButtonMassageBy);
         }
 
     }
