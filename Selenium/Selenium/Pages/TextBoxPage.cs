@@ -1,6 +1,6 @@
 ﻿using OpenQA.Selenium;
 
-namespace Selenium.Pages
+namespace Selenium
 {
     internal class TextBoxPage : BasePage
     {
@@ -8,6 +8,7 @@ namespace Selenium.Pages
         {
         }
 
+        private string pageUrl = "https://demoqa.com/text-box";
         By fullNameBy = By.Id("userName");
         By emailBy = By.Id("userEmail");
         By currentAddressBy = By.XPath("//*[@placeholder='Current Address']");
@@ -17,6 +18,11 @@ namespace Selenium.Pages
         By emailOutputBy = By.Id("email");
         By currentOutputAddressBy = By.CssSelector("#output #currentAddress.mb-1");
         By permanentOutputAddressBy = By.XPath("//*[@Id='output']//*[@id='permanentAddress']");
+
+        public void Open()
+        {
+            _driver.NavigateTo(pageUrl);
+        }
 
         public void FillFullName(string fullName)
         {

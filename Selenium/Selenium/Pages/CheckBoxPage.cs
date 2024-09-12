@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Selenium.Pages
+namespace Selenium
 {
     internal class CheckBoxPage : BasePage
     {
@@ -13,10 +13,16 @@ namespace Selenium.Pages
         {
         }
 
+        private string pageUrl = "https://demoqa.com/checkbox";
         private By firstTreeItemBy = By.XPath("//*[@id='tree-node']/ol/li/span/button");
         private By secondTreeItemBy = By.XPath("//*[@id='tree-node']/ol/li/ol/li[3]/span/button");
         private By thirdTreeItemBy = By.XPath(".//*[text()='Excel File.doc']/.");
         private By resultTextBy = By.XPath("//*[@class='text-success']");
+
+        public void Open()
+        {
+            _driver.NavigateTo(pageUrl);
+        }
 
         public void ClickFirstTreeItem()
         {

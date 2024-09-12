@@ -1,11 +1,10 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
-using Selenium.Pages;
 
 namespace Selenium
 {
     internal class SolarPage : BasePage
     {
+        private string pageUrl = "https://solartechnology.com.ua/shop";
         private By loader = By.Id("p_prldr");
         private By solarPanelsLink = By.CssSelector(".list-inline [href='/shop/solar-panels']");
         private By filterButton = By.CssSelector(".filter-button");
@@ -17,7 +16,7 @@ namespace Selenium
 
         public void Open()
         {
-            NavigateTo("https://solartechnology.com.ua/shop");
+            _driver.NavigateTo(pageUrl);
 
             WaitForLoader();
         }
@@ -50,7 +49,7 @@ namespace Selenium
 
         public string GetFirstProductTitleText()
         {
-            return FindElement(productTitle).Text;
+            return _driver.FindElement(productTitle).Text;
         }
 
     }

@@ -1,9 +1,10 @@
 ﻿using OpenQA.Selenium;
 
-namespace Selenium.Pages
+namespace Selenium
 {
     internal class FormPage : BasePage
     {
+        private string pageUrl = "https://demoqa.com/automation-practice-form";
         private By firstNameInputBy = By.Id("firstName");
         private By lastNameInputBy = By.Id("lastName");
         private By emailInputBy = By.Id("userEmail");
@@ -22,11 +23,16 @@ namespace Selenium.Pages
         {
         }
 
+        public void Open()
+        {
+            _driver.NavigateTo(pageUrl);
+        }
+
         public void FillFirstName(string firstName)
         {
             FillInput(firstNameInputBy, firstName);
         }
-        
+
         public void FillLastName(string lastName)
         {
             FillInput(lastNameInputBy, lastName);

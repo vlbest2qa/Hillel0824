@@ -1,5 +1,4 @@
 ﻿using OpenQA.Selenium;
-using Selenium.Pages;
 
 namespace Selenium
 {
@@ -10,7 +9,7 @@ namespace Selenium
         {
             // Arrange
             var formPage = new FormPage(_driver);
-            formPage.NavigateTo("https://demoqa.com/automation-practice-form");
+            formPage.Open();
 
             // Act
             formPage.FillFirstName("John");
@@ -37,7 +36,7 @@ namespace Selenium
         {
             // Arrange
             var formPage = new FormPage(_driver);
-            formPage.NavigateTo("https://demoqa.com/automation-practice-form");
+            formPage.Open();
 
             string mandatoryFieldBorderColor = "rgb(220, 53, 69)";
             string optionalFieldBorderColor = "rgb(40, 167, 69)";

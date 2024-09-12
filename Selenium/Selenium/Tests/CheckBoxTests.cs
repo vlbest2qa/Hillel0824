@@ -1,7 +1,4 @@
-﻿using OpenQA.Selenium;
-using Selenium.Pages;
-
-namespace Selenium
+﻿namespace Selenium
 {
     public class CheckBoxTests : BaseClass
     {
@@ -10,7 +7,7 @@ namespace Selenium
         {
             // Arrange
             var checkBoxPage = new CheckBoxPage(_driver);
-            checkBoxPage.NavigateTo("https://demoqa.com/checkbox");
+            checkBoxPage.Open();
 
             string validationChoise = "excelFile";
 
