@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using System.Xml.Linq;
 
 namespace Selenium
 {
@@ -18,8 +19,9 @@ namespace Selenium
         private By ageBy = By.Id("age");
         private By salaryBy = By.Id("salary");
         private By departmentBy = By.Id("department");
-        private By SubmitButtonBy = By.Id("submit");
-        
+        private By submitButtonBy = By.Id("submit");
+        private By deleteButtonBy = By.XPath("//*[@class='rt-tbody']//*[contains(@class,'rt-tr-group')]//*[@class='rt-td']//ancestor::*[@role='row']//*[@title='Delete']");
+        private By rowsBy = By.XPath("//*[@class='rt-tbody']//*[contains(@class,'rt-tr-group')]");
 
         public void Open()
         {
@@ -43,13 +45,37 @@ namespace Selenium
 
         public void ClickFormSubmitButton()
         {
-            _driver.ClickElement(SubmitButtonBy);
+            _driver.ClickElement(submitButtonBy);
         }
 
-        public bool СheckAddedSting(string value, string whichString)
+        public bool СheckAddedRow(string value, string whichRow)
         {
-            By ResultStringBy = By.XPath($"//*[@class='rt-tbody']//*[@class='rt-tr-group']//*[contains(@class,'rt-tr') and *[@class='rt-td' and text()='{whichString}']]");
+            By ResultStringBy = By.XPath($"//*[@class='rt-tbody']//*[@class='rt-tr-group']//*[contains(@class,'rt-tr') and *[@class='rt-td' and text()='{whichRow}']]");
             return _driver.GetTextElement(ResultStringBy).Contains(value);
+        }
+
+        public async Task OpenAsync()
+        {
+            await Task.Run(() => _driver.NavigateTo(pageUrl));
+        }
+
+        public async Task DeleteRowInTableAsync(string whitchRow)
+        {
+            By deleteTestButtonBy = By.XPath($"//*[@class='rt-tbody']//*[contains(@class,'rt-tr-group')]//*[@class='rt-td' and text()='{whitchRow}']//ancestor::*[@role='row']//*[@title='Delete']");
+            await Task.Run(() => _driver.ClickElement(deleteTestButtonBy));
+        }
+
+        public async Task<int> CountRowInTableAsync()
+        {
+            return await Task.Run(() => _driver.FindElements(deleteButtonBy).Count);
+        }
+
+        public async Task<bool> IsRowPresentAsync(string searchRowBy)
+        {
+            return await Task.Run(() =>
+            {
+                return _driver.FindElements(rowsBy).Any(ele => ele.Text.Contains(searchRowBy));
+            });
         }
     }
 }
