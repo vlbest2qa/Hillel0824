@@ -96,5 +96,10 @@ namespace Selenium
             Actions actions = new Actions(driver);
             actions.ContextClick(driver.FindElement(selector)).Perform();
         }
+
+        public static IReadOnlyCollection<IWebElement> FindElements(this IWebDriver driver, By by)
+        {
+            return driver.FindElements(by);
+        }
     }
 }
