@@ -1,5 +1,4 @@
 ﻿using OpenQA.Selenium;
-using System.Xml.Linq;
 
 namespace Selenium
 {
@@ -48,34 +47,26 @@ namespace Selenium
             _driver.ClickElement(submitButtonBy);
         }
 
-        public bool СheckAddedRow(string value, string whichRow)
+        public bool CheckAddedRow(string value, string whichRow)
         {
             By ResultStringBy = By.XPath($"//*[@class='rt-tbody']//*[@class='rt-tr-group']//*[contains(@class,'rt-tr') and *[@class='rt-td' and text()='{whichRow}']]");
             return _driver.GetTextElement(ResultStringBy).Contains(value);
         }
 
-        public async Task OpenAsync()
+        public void DeleteRowInTable(string whichRow)
         {
-            await Task.Run(() => _driver.NavigateTo(pageUrl));
+            By deleteTestButtonBy = By.XPath($"//*[@class='rt-tbody']//*[contains(@class,'rt-tr-group')]//*[@class='rt-td' and text()='{whichRow}']//ancestor::*[@role='row']//*[@title='Delete']");
+            _driver.ClickElement(deleteTestButtonBy);
         }
 
-        public async Task DeleteRowInTableAsync(string whitchRow)
+        public int CountRowInTable()
         {
-            By deleteTestButtonBy = By.XPath($"//*[@class='rt-tbody']//*[contains(@class,'rt-tr-group')]//*[@class='rt-td' and text()='{whitchRow}']//ancestor::*[@role='row']//*[@title='Delete']");
-            await Task.Run(() => _driver.ClickElement(deleteTestButtonBy));
+            return _driver.FindElements(deleteButtonBy).Count;
         }
 
-        public async Task<int> CountRowInTableAsync()
+        public bool IsRowPresent(string searchRowBy)
         {
-            return await Task.Run(() => _driver.FindElements(deleteButtonBy).Count);
-        }
-
-        public async Task<bool> IsRowPresentAsync(string searchRowBy)
-        {
-            return await Task.Run(() =>
-            {
-                return _driver.FindElements(rowsBy).Any(ele => ele.Text.Contains(searchRowBy));
-            });
+            return _driver.FindElements(rowsBy).Any(ele => ele.Text.Contains(searchRowBy));
         }
     }
 }

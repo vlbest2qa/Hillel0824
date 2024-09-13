@@ -25,12 +25,12 @@
             //Зробив перевірки що доданна строка містить усі елементи які додавали. А як оріентир для цієї строки використав firstName.
             Assert.Multiple(() =>
             {
-                Assert.That(webTablesPage.СheckAddedRow(firstName, firstName), Is.EqualTo(true), "First Name not added or outside the result string");
-                Assert.That(webTablesPage.СheckAddedRow(lastName, firstName), Is.EqualTo(true), "Last Name not added or outside the result string");
-                Assert.That(webTablesPage.СheckAddedRow(age, firstName), Is.EqualTo(true), "Age not added or outside the result string");
-                Assert.That(webTablesPage.СheckAddedRow(email, firstName), Is.EqualTo(true), "Email not added or outside the result string");
-                Assert.That(webTablesPage.СheckAddedRow(salary, firstName), Is.EqualTo(true), "Salary not added or outside the result string");
-                Assert.That(webTablesPage.СheckAddedRow(department, firstName), Is.EqualTo(true), "Departmant not added or outside the result string");
+                Assert.That(webTablesPage.CheckAddedRow(firstName, firstName), Is.EqualTo(true), "First Name not added or outside the result string");
+                Assert.That(webTablesPage.CheckAddedRow(lastName, firstName), Is.EqualTo(true), "Last Name not added or outside the result string");
+                Assert.That(webTablesPage.CheckAddedRow(age, firstName), Is.EqualTo(true), "Age not added or outside the result string");
+                Assert.That(webTablesPage.CheckAddedRow(email, firstName), Is.EqualTo(true), "Email not added or outside the result string");
+                Assert.That(webTablesPage.CheckAddedRow(salary, firstName), Is.EqualTo(true), "Salary not added or outside the result string");
+                Assert.That(webTablesPage.CheckAddedRow(department, firstName), Is.EqualTo(true), "Departmant not added or outside the result string");
             });
         }
 
@@ -38,21 +38,21 @@
         [TestCase("Alden")]
         [TestCase("Kierra")]
 
-        public async Task RemoveRecordFromTable(string firstName)
+        public void RemoveRecordFromTable(string firstName)
         {
             // Arrange
             var webTablesPage = new WebTablesPage(_driver);
-            await webTablesPage.OpenAsync();
+            webTablesPage.Open();
 
             // Act
-            int CountRowBeforeDelete = await webTablesPage.CountRowInTableAsync();
-            await webTablesPage.DeleteRowInTableAsync(firstName);
+            int CountRowBeforeDelete = webTablesPage.CountRowInTable();
+            webTablesPage.DeleteRowInTable(firstName);
             
             // Assert
-            Assert.Multiple(async() =>
+            Assert.Multiple(() =>
             {
-                Assert.That(await webTablesPage.CountRowInTableAsync(), Is.EqualTo(CountRowBeforeDelete - 1));
-                Assert.That(await webTablesPage.IsRowPresentAsync(firstName), Is.Not.EqualTo(true));
+                Assert.That(webTablesPage.CountRowInTable(), Is.EqualTo(CountRowBeforeDelete - 1));
+                Assert.That(webTablesPage.IsRowPresent(firstName), Is.Not.EqualTo(true));
             });
         }
     }
