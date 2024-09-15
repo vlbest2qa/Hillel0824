@@ -12,10 +12,10 @@ namespace AtataDemoQA
         [FindById("userEmail")]
         public EmailInput<_> Email { get; set; }
 
-        [FindByXPath("//*[@placeholder='Current Address']")]
+        [FindById("currentAddress")]
         public TextArea<_> CurrentAddres { get; set; }
 
-        [FindByXPath("//*[@class='col-md-9 col-sm-12']//*[@id='permanentAddress']")]
+        [FindById("permanentAddress")]
         public TextArea<_> PermanentAddress { get; set; }
 
         [FindById("submit")]
@@ -27,10 +27,10 @@ namespace AtataDemoQA
         [FindById("email")]
         public Text<_> EmailResult { get; set; }
 
-        [FindByCss("#output #currentAddress.mb-1")]
+        [FindByCss("#output #currentAddress")]
         public Text<_> CurrentAddressResult { get; set; }
 
-        [FindByXPath("//*[@Id='output']//*[@id='permanentAddress']")]
+        [FindByCss("#output #permanentAddress")]
         public Text<_> PermanentAddressResult { get; set; }
     }
 }
