@@ -12,6 +12,7 @@ namespace AtataDemoQA
         [FindById("userEmail")]
         public EmailInput<_> Email { get; set; }
 
+        //[FindByPlaceholder("Current Address")]
         [FindById("currentAddress")]
         public TextArea<_> CurrentAddres { get; set; }
 
