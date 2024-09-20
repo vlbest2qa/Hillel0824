@@ -21,6 +21,5 @@
             var doubleType = GetParameterType(new List<double>() { 1.23 });
             Assert.That(doubleType, Is.EqualTo("Data type: System.Collections.Generic.List`1[System.Double]"));
          }
-
     }
 }
