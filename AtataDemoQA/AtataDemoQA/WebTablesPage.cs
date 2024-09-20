@@ -41,9 +41,39 @@ namespace AtataDemoQA
 
         }
 
-        public Button<_> Add { get; private set; }
+        [FindById("addNewRecordButton")]
+        public Button<_> AddNewRecordButton { get; private set; }
 
         //public AddPopup<_> AddPopup { get; private set; }
+        /* 
+         public class AddPopup<TOwner> : Control<TOwner> where TOwner : PageObject<TOwner>
 
+         Не хочу огортати це у класс AddPopup тільки заради більчи читаємого тесту
+         Коли потім у тесті все одно прийдется кожного разу до нього звертатись:
+         AddPopup.FirstName.Set(firstName)
+         AddPopup.LastName.Set(lastName)
+         Лиш зайві строки і код. І я б до кього не додумався.
+        */
+
+        [FindById("firstName")]
+        public TextInput<_> FirstName { get; private set; }
+
+        [FindByPlaceholder("Last Name")]//чому не по ID? та просто щоб різне було=)
+        public TextInput<_> LastName { get; private set; }
+
+        [FindById("userEmail")]
+        public TextInput<_> Email { get; private set; }//не зміг найти спільну мову з класом EmailInput як і з усім Atata
+
+        [FindById("age")]
+        public NumberInput<_> Age { get; private set; }
+
+        [FindById("salary")]
+        public NumberInput<_> Salary { get; private set; }
+
+        [FindById("department")]
+        public TextInput<_> Department { get; private set; }
+
+        [FindById("submit")]
+        public Button<_> Submit { get; private set; }
     }
 }
