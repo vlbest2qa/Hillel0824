@@ -1,4 +1,4 @@
-name: Selenium Tests
+name: .NET
 
 on:
   push:
@@ -13,17 +13,26 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-  
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
-
+    - name: Install Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y wget unzip
+        # Установка Google Chrome
+        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+        sudo apt install -y ./google-chrome-stable_current_amd64.deb
+        # Установка ChromeDriver
+        CHROMEDRIVER_VERSION=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
+        wget https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip
+        unzip chromedriver_linux64.zip
+        sudo mv chromedriver /usr/local/bin/
+        sudo chmod +x /usr/local/bin/chromedriver
     - name: Restore dependencies
-      run: dotnet restore Selenium
-
+      run: dotnet restore Selenium/Selenium.sln
     - name: Build
-      run: dotnet build Selenium --no-restore
-
-    - name: Test
-      run: dotnet test Selenium/Selenium --no-build --configuration Release --verbosity normal
+      run: dotnet build Selenium/Selenium.sln --no-restore
+    - name: Run Selenium Tests
+      run: dotnet test Selenium/Selenium.sln --no-build --configuration Release --verbosity normal
