@@ -25,10 +25,10 @@ jobs:
         sudo apt-get install -y chromium-browser chromium-chromedriver
 
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore SeleniumDemoQA
 
-    - name: Build the project
-      run: dotnet build --no-restore
+    - name: Build
+      run: dotnet build Selenium --no-restore
 
     - name: Run Selenium tests
       run: |
