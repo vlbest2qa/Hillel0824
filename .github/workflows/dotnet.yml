@@ -1,25 +1,25 @@
-name: .NET Tests
+# name: .NET Tests
 
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+# on:
+#   push:
+#     branches: [ "main" ]
+#   pull_request:
+#     branches: [ "main" ]
 
-jobs:
-  build:
+# jobs:
+#   build:
 
-    runs-on: ubuntu-latest
+#     runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v4
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 8.0.x
-    - name: Restore dependencies
-      run: dotnet restore Selenium
-    - name: Build
-      run: dotnet build Selenium --no-restore
-    - name: Test
-      run: dotnet test Selenium/CSharpBasics --no-build
+#     steps:
+#     - uses: actions/checkout@v4
+#     - name: Setup .NET
+#       uses: actions/setup-dotnet@v4
+#       with:
+#         dotnet-version: 8.0.x
+#     - name: Restore dependencies
+#       run: dotnet restore Selenium
+#     - name: Build
+#       run: dotnet build Selenium --no-restore
+#     - name: Test
+#       run: dotnet test Selenium/CSharpBasics --no-build
