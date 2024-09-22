@@ -32,6 +32,13 @@ jobs:
         sudo chmod +x /usr/local/bin/chromedriver
     - name: Restore dependencies
       run: dotnet restore Selenium
+    - name: Update Packages
+      run: |
+        dotnet add Selenium/Selenium/Selenium.csproj package Microsoft.NET.Test.Sdk --version 17.10.0
+        dotnet add Selenium/Selenium/Selenium.csproj package NUnit --version 3.13.3
+        dotnet add Selenium/Selenium/Selenium.csproj package NUnit3TestAdapter --version 4.2.1
+    - name: Clean
+      run: dotnet clean Selenium/Selenium/Selenium.csproj
     - name: Build
       run: dotnet build Selenium --no-restore
     - name: Run Selenium Tests
