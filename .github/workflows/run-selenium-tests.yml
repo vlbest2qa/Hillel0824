@@ -1,4 +1,4 @@
-name: .NET
+name: .NET Selenium Tests
 on:
   push:
     branches: [ "main" ]
@@ -16,5 +16,4 @@ jobs:
     - name: Build
       run: dotnet build Selenium/Selenium/Selenium.csproj --configuration Release
     - name: Run Tests
-      run: dotnet test Selenium/Selenium/Selenium.csproj --no-build --configuration Release --verbosity normal --logger:"console;verbosity=detailed" --blame
-      continue-on-error: true
+      run: dotnet test Selenium/Selenium/Selenium.csproj --no-build --configuration Release --verbosity normal --logger:"console;verbosity=detailed"
