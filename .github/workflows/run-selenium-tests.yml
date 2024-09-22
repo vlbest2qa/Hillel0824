@@ -1,9 +1,9 @@
 name: .NET
 on:
   push:
-    branches: [ "pipeline_fix" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "pipeline_fix" ]
+    branches: [ "main" ]
 jobs:
   build:
     runs-on: ubuntu-latest
