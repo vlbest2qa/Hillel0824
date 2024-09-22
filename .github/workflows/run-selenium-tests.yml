@@ -1,46 +1,18 @@
 name: .NET
-
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "pipeline_fix" ]
   pull_request:
-    branches: [ "main" ]
-
+    branches: [ "pipeline_fix" ]
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
-    - name: Install Dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y wget unzip
-        # Установка Google Chrome
-        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-        sudo apt install -y ./google-chrome-stable_current_amd64.deb
-        # Установка ChromeDriver
-        wget https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip
-        unzip chromedriver_linux64.zip
-        sudo mv chromedriver /usr/local/bin/
-        sudo chmod +x /usr/local/bin/chromedriver
-    - name: Restore Dependencies
-      run: dotnet restore Selenium/Selenium/Selenium.csproj
-    - name: Update Packages
-      run: |
-        dotnet add Selenium/Selenium/Selenium.csproj package Microsoft.NET.Test.Sdk --version 17.10.0
-        dotnet add Selenium/Selenium/Selenium.csproj package NUnit --version 3.13.3
-        dotnet add Selenium/Selenium/Selenium.csproj package NUnit3TestAdapter --version 4.2.1
-    - name: Clean
-      run: |
-        dotnet clean Selenium/Selenium/Selenium.csproj
-        rm -rf Selenium/Selenium/bin
-        rm -rf Selenium/Selenium/obj
     - name: Build
       run: dotnet build Selenium/Selenium/Selenium.csproj --configuration Release
     - name: Run Tests
