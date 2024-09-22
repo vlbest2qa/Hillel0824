@@ -22,7 +22,6 @@
             webTablesPage.ClickFormSubmitButton();
 
             // Assert
-            //Зробив перевірки що доданна строка містить усі елементи які додавали. А як оріентир для цієї строки використав firstName.
             Assert.Multiple(() =>
             {
                 Assert.That(webTablesPage.CheckAddedRow(firstName, firstName), Is.EqualTo(true), "First Name not added or outside the result string");
