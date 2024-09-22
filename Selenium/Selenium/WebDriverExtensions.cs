@@ -50,6 +50,7 @@ namespace Selenium
 
         public static void DoubleClickAction(this IWebDriver driver, By selector)
         {
+            ScrollToTop((IJavaScriptExecutor)driver, driver.FindElement(selector));
             Actions actions = new Actions(driver);
             actions.DoubleClick(driver.FindElement(selector)).Perform();
         }
@@ -93,6 +94,7 @@ namespace Selenium
 
         public static void RightClickAction(this IWebDriver driver, By selector)
         {
+            ScrollToTop((IJavaScriptExecutor)driver, driver.FindElement(selector));
             Actions actions = new Actions(driver);
             actions.ContextClick(driver.FindElement(selector)).Perform();
         }
