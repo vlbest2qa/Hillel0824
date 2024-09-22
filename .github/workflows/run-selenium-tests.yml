@@ -30,22 +30,19 @@ jobs:
         unzip chromedriver_linux64.zip
         sudo mv chromedriver /usr/local/bin/
         sudo chmod +x /usr/local/bin/chromedriver
-    - name: Restore dependencies
-      run: dotnet restore Selenium
+    - name: Restore Dependencies
+      run: dotnet restore Selenium/Selenium/Selenium.csproj
     - name: Update Packages
       run: |
         dotnet add Selenium/Selenium/Selenium.csproj package Microsoft.NET.Test.Sdk --version 17.10.0
         dotnet add Selenium/Selenium/Selenium.csproj package NUnit --version 3.13.3
         dotnet add Selenium/Selenium/Selenium.csproj package NUnit3TestAdapter --version 4.2.1
-
     - name: Clean
       run: |
         dotnet clean Selenium/Selenium/Selenium.csproj
         rm -rf Selenium/Selenium/bin
         rm -rf Selenium/Selenium/obj
-
     - name: Build
-      run: dotnet build Selenium --no-restore
-
-    - name: Run Selenium Tests
-      run: dotnet vstest Selenium/Selenium --no-build --configuration Release --verbosity normal --logger:"console;verbosity=detailed"
+      run: dotnet build Selenium/Selenium/Selenium.csproj --no-restore
+    - name: Run Tests
+      run: dotnet test Selenium/Selenium/Selenium.csproj --no-build --configuration Release --verbosity normal --logger:"console;verbosity=detailed"
