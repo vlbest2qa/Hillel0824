@@ -35,4 +35,4 @@ jobs:
     - name: Build
       run: dotnet build Selenium --no-restore
     - name: Run Selenium Tests
-      run: dotnet test Selenium/Selenium.csproj --no-build --configuration Release --verbosity normal --logger:"console;verbosity=detailed"
+      run: dotnet test Selenium/Selenium/Selenium.csproj --no-build --configuration Release --verbosity normal --logger:"console;verbosity=detailed"
