@@ -32,4 +32,4 @@ jobs:
 
     - name: Run Selenium tests
       run: |
-        dotnet test Selenium/Selenium --no-build --filter Category=Selenium
+        dotnet test Selenium/Selenium --no-build
