@@ -37,9 +37,9 @@ jobs:
         dotnet add Selenium/Selenium/Selenium.csproj package Microsoft.NET.Test.Sdk --version 17.10.0
         dotnet add Selenium/Selenium/Selenium.csproj package NUnit --version 3.13.3
         dotnet add Selenium/Selenium/Selenium.csproj package NUnit3TestAdapter --version 4.2.1
-    - name: Clean
-      run: dotnet clean Selenium/Selenium/Selenium.csproj
+
     - name: Build
       run: dotnet build Selenium --no-restore
+
     - name: Run Selenium Tests
-      run: dotnet test Selenium/Selenium/Selenium.csproj --no-build --configuration Release --verbosity normal --logger:"console;verbosity=detailed"
+      run: dotnet test Selenium/Selenium/Selenium --no-build --configuration Release --verbosity normal --logger:"console;verbosity=detailed"
