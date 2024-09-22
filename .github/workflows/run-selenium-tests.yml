@@ -34,12 +34,21 @@ jobs:
         CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+')
         # Получение мажорной версии для загрузки ChromeDriver
         MAJOR_VERSION=$(echo $CHROME_VERSION | cut -d '.' -f 1-2)
-        # Загрузка совместимого ChromeDriver
-        LATEST_DRIVER_URL=$(curl -s https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$MAJOR_VERSION)
-        wget https://chromedriver.storage.googleapis.com/$LATEST_DRIVER_URL/chromedriver_linux64.zip
+        # Получение последней доступной версии ChromeDriver для текущей мажорной версии
+        LATEST_DRIVER_URL=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$MAJOR_VERSION")
+        
+        # Проверка, что версия получена
+        if [ -z "$LATEST_DRIVER_URL" ]; then
+          echo "Failed to get the latest ChromeDriver version for Chrome $CHROME_VERSION."
+          exit 1
+        fi
+        
+        # Загрузка и установка ChromeDriver
+        wget "https://chromedriver.storage.googleapis.com/$LATEST_DRIVER_URL/chromedriver_linux64.zip"
         unzip chromedriver_linux64.zip
         sudo mv chromedriver /usr/bin/chromedriver
         sudo chmod +x /usr/bin/chromedriver
+
         
     - name: Restore dependencies
       run: dotnet restore Selenium
