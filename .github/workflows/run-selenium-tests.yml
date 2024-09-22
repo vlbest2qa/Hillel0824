@@ -26,4 +26,4 @@ jobs:
       run: dotnet build Selenium --no-restore
 
     - name: Test
-      run: dotnet test Selenium/Selenium --no-build --configuration Release
+      run: dotnet test Selenium/Selenium --no-build --configuration Release --verbosity normal
