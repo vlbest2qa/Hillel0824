@@ -13,6 +13,7 @@ namespace Selenium
         public void Setup()
         {
             var options = new ChromeOptions();
+            options.AddArguments("headless");
             options.AddArgument("window-size=1400,1200");
             _driver = new ChromeDriver(options);
             _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
@@ -20,7 +21,7 @@ namespace Selenium
         }
 
         [TearDown]
-        public void TearDown()
+        public void TearDown() 
         {
             _driver.Quit();
         }
