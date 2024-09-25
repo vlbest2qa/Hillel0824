@@ -1,9 +1,14 @@
 name: .NET Selenium Tests
+
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - 'Selenium/Selenium/**'
   pull_request:
     branches: [ "main" ]
+    paths:
+      - 'Selenium/Selenium/**'
 
 jobs:
   build:
