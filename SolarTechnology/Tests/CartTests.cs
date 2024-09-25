@@ -22,7 +22,6 @@ namespace SolarTechnology.Tests
             // Assert
             Assert.Multiple(() =>
             {
-                //в процессе появлялись новые проверки. Оставил все, хотя IsCurentUrlEqualHome думаю было бы достаточно
                 Assert.That(homePage.IsCurentUrlEqualHome(), Is.EqualTo(true), "Current url NOT equal home url.");
                 Assert.That(homePage.IsTitleDisplayed(), Is.EqualTo(true), "Not found title on the page.");
                 Assert.That(homePage.GetTitlelHome(), Is.EqualTo("Магазин"), "Current title not equal home title.");
