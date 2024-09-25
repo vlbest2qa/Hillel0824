@@ -2,7 +2,6 @@
 {
     public class SolarTests : BaseClass
     {
-
         [Test]
         public void VerifyFiltering()
         {
@@ -21,7 +20,5 @@
             //MyAssert.NotEqual(firstProductTextAfter, firstProductTextBefore);
             Assert.That(firstProductTextAfter, Is.Not.EqualTo(firstProductTextBefore));
         }
-
-
     }
 }
