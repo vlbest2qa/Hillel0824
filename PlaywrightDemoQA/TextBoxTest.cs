@@ -11,7 +11,7 @@ namespace PlaywrightTests;
 public class TextBoxTest
 {
     [Test]
-    public async Task HasTitle()
+    public async Task FillFormAndCheckResult()
     {
         using var playwright = await Playwright.CreateAsync();
         await using var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
