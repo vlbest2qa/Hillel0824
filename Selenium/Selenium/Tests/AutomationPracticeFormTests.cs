@@ -1,6 +1,5 @@
 ﻿using OpenQA.Selenium;
 
-
 namespace Selenium
 {
     public class AutomationPracticeFormTests : BaseClass
