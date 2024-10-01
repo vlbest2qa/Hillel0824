@@ -18,8 +18,8 @@
         public async Task TestGetStringAsync()
         {
             // TODO: Uncomment and implement test so it pass
-            //var result = 
-            //Assert.That(result, Is.EqualTo("Hello, World!"));
+            var result = await GetStringAsync();
+            Assert.That(result, Is.EqualTo("Hello, World!"));
         }
 
         [Test]
@@ -27,6 +27,8 @@
         {
             // TODO: Verify that GetNumberWithExceptionAsync() throws InvalidOperationException
             // and that exception message is "An error occurred while fetching the number."
+            var ex = Assert.ThrowsAsync<InvalidOperationException>(async () => await GetNumberWithExceptionAsync());
+            Assert.That(ex.Message, Is.EqualTo("An error occurred while fetching the number."));
         }
     }
 }
