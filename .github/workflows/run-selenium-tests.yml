@@ -7,8 +7,6 @@ on:
       - 'Selenium/Selenium/**'
   pull_request:
     branches: [ "main" ]
-    paths:
-      - 'Selenium/Selenium/**'
 
 jobs:
   build:
