@@ -25,5 +25,24 @@ namespace LambdatestEcom.Pages
             //await page.WaitForLoadStateAsync(LoadState.NetworkIdle);
             await _page.WaitForLoadStateAsync(LoadState.DOMContentLoaded);
         }
+
+        public async Task FillHeaderSearchField(string searchText, bool isClickSearch = false)
+        {
+            await _page.GetByRole(AriaRole.Textbox, new() { Name = "Search For Products" }).FillAsync(searchText);
+            if (isClickSearch)
+            {
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Search" }).ClickAsync();
+            }
+        }
+
+        public async Task SelectInSearchDropdown(int whichProduct)
+        {
+            await _page.Locator(".dropdown-menu .image").Nth(whichProduct).ClickAsync();
+        }
+
+        public async Task ClickViewCartOnPopup()
+        {
+            await _page.GetByRole(AriaRole.Link, new() { Name = "View Cart" }).ClickAsync();
+        }
     }
 }
