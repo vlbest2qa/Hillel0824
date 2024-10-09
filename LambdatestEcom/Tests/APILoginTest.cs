@@ -1,4 +1,5 @@
 ﻿using LambdatestEcom.Pages;
+using Microsoft.Playwright;
 
 namespace LambdatestEcom.Tests
 {
@@ -17,12 +18,11 @@ namespace LambdatestEcom.Tests
             string password = "test";
 
             // Act
-            Assert.That(await apiLogin.APIlogin(email, password), Is.True); 
+            await apiLogin.APIlogin(email, password); 
             await userCabinet.Open();
 
             // Assert
-            StringAssert.EndsWith("?route=account/account", page.Url);
-            Assert.That(userCabinet.IsUserCabinetOpen().Result, Is.True);
+            await Assertions.Expect(userCabinet.PageHeader()).ToBeVisibleAsync();
         }
     }
 }

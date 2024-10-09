@@ -16,9 +16,9 @@ namespace LambdatestEcom.Pages
             await _page.GotoAsync("https://ecommerce-playground.lambdatest.io/index.php?route=account/account");
         }
 
-        public async Task<bool> IsUserCabinetOpen()
+        public ILocator PageHeader()
         {
-            return await _page.GetByRole(AriaRole.Heading, new() { Name = "My Account" }).IsVisibleAsync();
+            return _page.GetByRole(AriaRole.Heading, new() { Name = "My Account" });
         }
     }
 }
