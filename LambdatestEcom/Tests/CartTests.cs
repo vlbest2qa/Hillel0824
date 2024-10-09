@@ -1,6 +1,4 @@
-﻿using DecoratorDesignPatternTests.Models;
-using LambdatestEcom.Pages;
-using System.Security.Cryptography.X509Certificates;
+﻿using LambdatestEcom.Pages;
 
 namespace LambdatestEcom.Tests
 {
@@ -9,7 +7,7 @@ namespace LambdatestEcom.Tests
     public class CartTests : UITestFixture
     {
         [Test]
-        public async Task ChangeLate()
+        public async Task CartChangeQuantity()
         {
             // Arrange
 
