@@ -105,23 +105,23 @@ this.ScenarioInitialize(scenarioInfo);
 #line 5
  testRunner.Given("Open Text Box page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 6
- testRunner.When("Fill Full Name \'Kotelevets Vladyslav\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
 #line 7
- testRunner.And("Fill Email \'myemail@gmail.com\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When("Fill Full Name \'John Doe\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 8
- testRunner.And("Fill Curren t Adress \'4B Serpova street, Kharkiv, Ukraine\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.And("Fill Email \'john.doe@example.com\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 9
- testRunner.And("Fill Permanent Adress \'8 Berejnia street, Vasisheve, Ukraine\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.And("Fill Current Address \'123 Main St, Anytown, USA\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 10
- testRunner.And("Click Submit Button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.And("Fill Permanent Address \'456 Another St, Othertown, USA\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 11
- testRunner.Then("Output Name should be \'Name:Kotelevets Vladyslav\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+    testRunner.And("Submit Form", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 12
+ testRunner.Then("Output Name should be \'Name:John Doe\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
