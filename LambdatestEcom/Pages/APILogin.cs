@@ -13,6 +13,7 @@ namespace LambdatestEcom.Pages
 
         public async Task APIlogin(string email, string password)
         {
+            await _page.Context.ClearCookiesAsync();
             var multipart = _page.APIRequest.CreateFormData();
             multipart.Append("email", email);
             multipart.Append("password", password);
