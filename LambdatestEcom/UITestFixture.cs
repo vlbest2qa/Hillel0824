@@ -47,18 +47,6 @@ namespace LambdatestEcom
             });
 
             page = await context.NewPageAsync();
-
-            await page.GotoAsync("https://ecommerce-playground.lambdatest.io/index.php?route=account/account");
-            if (!await page.GetByRole(AriaRole.Heading, new() { Name = "My Account" }).IsVisibleAsync())
-            {
-                await page.GetByPlaceholder("E-Mail Address").FillAsync("mymail@gmail.com");
-                await page.GetByPlaceholder("Password").FillAsync("test");
-                await page.GetByRole(AriaRole.Button, new() { Name = "Login" }).ClickAsync();
-                await context.StorageStateAsync(new()
-                {
-                    Path = filePath
-                });
-            }
             //page.SetDefaultTimeout(5000);
         }
 
@@ -73,9 +61,10 @@ namespace LambdatestEcom
                 $"{TestContext.CurrentContext.Test.ClassName}.{TestContext.CurrentContext.Test.Name}.zip"
             )
             });
-
+            
             await page.CloseAsync();
             await browser.CloseAsync();
+            File.WriteAllText("../../../playwright/.auth/state.json", "{}");
         }
     }
 }
