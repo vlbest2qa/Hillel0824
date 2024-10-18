@@ -1,11 +1,12 @@
 ﻿Feature: CartTests
-@mytag
+
+@cartTests
 Scenario: add and delete product and return to home
-	Given open home page in CartTests
-	When open solar cabels in menu in CartTests
-	And add to cart one product with index 1
-	And go to cart in modal
-	And remove product from cart if one
-	Then is current url equal home
-	And is title displayed
-	And home page title name should be 'Магазин'
+	Given open home page
+	When open solar cabels in menu
+	And add second product to cart
+	And go to cart in popup window
+	And remove product from cart
+	Then current url is equal to home url
+	And title is displayed
+	And home page title name is 'Магазин'

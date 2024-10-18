@@ -4,20 +4,21 @@ using SpecFlowSolar.Pages;
 namespace SpecFlowSolar.StepDefinitions
 {
     [Binding]
+    [Scope(Tag = "filteringTests")]
     public class FilteringTestsStepDefinitions : BaseClass
     {
         private int productsBeforeFiltered;
         private int productsAfterFiltered;
 
-        [Given(@"open home page in FilteringTests")]
-        public void GivenOpenHomePageInFilteringTests()
+        [Given(@"open home page")]
+        public void GivenOpenHomePage()
         {
             var homePage = new HomePage(_driver);
             homePage.OpenHomePage();
         }
 
-        [When(@"open solar cabels in menu in FilteringTests")]
-        public void WhenOpenSolarCabelsInMenuInFilteringTests()
+        [When(@"open solar cabels in menu")]
+        public void WhenOpenSolarCabelsInMenu()
         {
             var homePage = new HomePage(_driver);
             homePage.OpenSolarPanels();
