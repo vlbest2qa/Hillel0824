@@ -25,7 +25,7 @@ namespace LambdatestEcom
             if (!Directory.Exists(subPath))
                 Directory.CreateDirectory(subPath);
             if (!File.Exists(filePath))
-                File.AppendAllText(filePath, "{}");
+                File.WriteAllText(filePath, "{}");
 
             context = await browser.NewContextAsync(new BrowserNewContextOptions
             {
