@@ -60,7 +60,6 @@ namespace SpecFlowSolar.StepDefinitions
         [Then(@"home page title name is '([^']*)'")]
         public void ThenHomePageTitleNameIs(string titleName)
         {
-            var homePage = new HomePage(_driver);
             Assert.That(homePage.GetTitlelHome(), Is.EqualTo(titleName), "Current title not equal home title.");
         }
     }
