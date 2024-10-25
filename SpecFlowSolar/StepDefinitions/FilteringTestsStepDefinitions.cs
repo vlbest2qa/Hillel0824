@@ -44,7 +44,7 @@ namespace SpecFlowSolar.StepDefinitions
         [When(@"choose brand '([^']*)' in filters")]
         public void WhenChooseBrandInFilters(string p0)
         {
-            catalogPage.CheckBrandInFilters("JA Solar");
+            catalogPage.CheckBrandInFilters(p0);
         }
 
         [When(@"count product after filtered")]
