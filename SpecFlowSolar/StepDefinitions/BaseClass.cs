@@ -16,10 +16,6 @@ namespace SpecFlowSolar.StepDefinitions
         {
             scenarioContext = scenarioContext;
             _driver = scenarioContext["WebDriver"] as IWebDriver;
-
-            cartPage = new CartPage(_driver);
-            catalogPage = new CatalogPage(_driver);
-            homePage = new HomePage(_driver);
         }
     }
 }

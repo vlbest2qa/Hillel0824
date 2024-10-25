@@ -9,6 +9,9 @@ namespace SpecFlowSolar.StepDefinitions
     {
         public CartTestsStepDefinitions(ScenarioContext scenarioContext) : base(scenarioContext)
         {
+            homePage = new HomePage(_driver);
+            cartPage = new CartPage(_driver);
+            catalogPage = new CatalogPage(_driver);
         }
 
         [Given(@"open home page")]

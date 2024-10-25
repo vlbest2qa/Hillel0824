@@ -10,6 +10,8 @@ namespace SpecFlowSolar.StepDefinitions
     {
         public FilteringTestsStepDefinitions(ScenarioContext scenarioContext) : base(scenarioContext)
         {
+            homePage = new HomePage(_driver);
+            catalogPage = new CatalogPage(_driver);
         }
 
         private int productsBeforeFiltered;
