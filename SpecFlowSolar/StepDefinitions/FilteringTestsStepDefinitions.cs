@@ -10,8 +10,6 @@ namespace SpecFlowSolar.StepDefinitions
     {
         public FilteringTestsStepDefinitions(ScenarioContext scenarioContext) : base(scenarioContext)
         {
-            homePage = new HomePage(_driver);
-            catalogPage = new CatalogPage(_driver);
         }
 
         private int productsBeforeFiltered;
@@ -42,9 +40,9 @@ namespace SpecFlowSolar.StepDefinitions
         }
 
         [When(@"choose brand '([^']*)' in filters")]
-        public void WhenChooseBrandInFilters(string p0)
+        public void WhenChooseBrandInFilters(string brandName)
         {
-            catalogPage.CheckBrandInFilters(p0);
+            catalogPage.CheckBrandInFilters(brandName);
         }
 
         [When(@"count product after filtered")]
