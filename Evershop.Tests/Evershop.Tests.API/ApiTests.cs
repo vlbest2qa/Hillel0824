@@ -11,6 +11,7 @@ namespace Evershop.Tests.API
         private RestClient _client;
         private string _sid;
         private CookieCollection _cookies;
+        private string uuid;
 
         [SetUp]
         public void Setup()
@@ -74,10 +75,31 @@ namespace Evershop.Tests.API
 
             // Assert
             var jsonResponse = JObject.Parse(response.Content);
+            uuid = jsonResponse["data"]["uuid"].ToString();
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK), jsonResponse.ToString());
             Assert.IsNotNull(jsonResponse["data"]);  // Check if new ID was returned
             Assert.IsNotNull(jsonResponse["data"]["product_description_id"]);  // Check if new ID was returned
             await Console.Out.WriteLineAsync(jsonResponse["data"]["product_description_id"].ToString());
+        }
+
+        [TearDown]
+        public async Task TearDownAsync()
+        {
+            if (uuid != null)
+            {
+                // Delete
+                var request = new RestRequest($"http://localhost:3000/api/products/{uuid}", Method.Delete);
+                for (int i = 0; i < _cookies.Count; i++)
+                {
+                    request.AddCookie(_cookies[i].Name, _cookies[i].Value, _cookies[i].Path, _cookies[i].Domain);
+                }
+                request.AddHeader("Authorization", $"Bearer {_sid}");
+
+                var response = _client.Execute(request);
+
+                Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+
+            }
         }
     }
 }
