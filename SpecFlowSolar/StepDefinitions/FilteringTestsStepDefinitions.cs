@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using SpecFlowSolar.Pages;
+using TechTalk.SpecFlow;
 
 namespace SpecFlowSolar.StepDefinitions
 {
@@ -7,48 +8,46 @@ namespace SpecFlowSolar.StepDefinitions
     [Scope(Tag = "filteringTests")]
     public class FilteringTestsStepDefinitions : BaseClass
     {
+        public FilteringTestsStepDefinitions(ScenarioContext scenarioContext) : base(scenarioContext)
+        {
+        }
+
         private int productsBeforeFiltered;
         private int productsAfterFiltered;
 
         [Given(@"open home page")]
         public void GivenOpenHomePage()
         {
-            var homePage = new HomePage(_driver);
             homePage.OpenHomePage();
         }
 
         [When(@"open solar cabels in menu")]
         public void WhenOpenSolarCabelsInMenu()
         {
-            var homePage = new HomePage(_driver);
             homePage.OpenSolarPanels();
         }
 
         [When(@"count product before filtered")]
         public void WhenCountProductBeforeFiltered()
         {
-            var catalogPage = new CatalogPage(_driver);
             productsBeforeFiltered = catalogPage.CountProducts();
         }
 
         [When(@"open filters")]
         public void WhenOpenFilters()
         {
-            var catalogPage = new CatalogPage(_driver);
             catalogPage.OpenFilters();
         }
 
         [When(@"choose brand '([^']*)' in filters")]
-        public void WhenChooseBrandInFilters(string p0)
+        public void WhenChooseBrandInFilters(string brandName)
         {
-            var catalogPage = new CatalogPage(_driver);
-            catalogPage.CheckBrandInFilters("JA Solar");
+            catalogPage.CheckBrandInFilters(brandName);
         }
 
         [When(@"count product after filtered")]
         public void WhenCountProductAfterFiltered()
         {
-            var catalogPage = new CatalogPage(_driver);
             productsAfterFiltered = catalogPage.CountProducts();
         }
 

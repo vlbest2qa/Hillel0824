@@ -1,26 +1,25 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
+using SpecFlowSolar.Pages;
 
 namespace SpecFlowSolar.StepDefinitions
 {
     public abstract class BaseClass
     {
         public IWebDriver _driver;
-        public IJavaScriptExecutor _js;
 
-        [BeforeScenario]
-        public void Setup()
-        {
-            var options = new ChromeOptions();
-            options.AddArgument("window-size=1400,1200");
-            _driver = new ChromeDriver(options);
-            _js = (IJavaScriptExecutor)_driver;
-        }
+        public HomePage homePage;
+        public CartPage cartPage;
+        public CatalogPage catalogPage;
 
-        [AfterScenario]
-        public void TearDown()
+        public ScenarioContext scenarioContext;
+        public BaseClass(ScenarioContext scenarioContext)
         {
-            _driver.Quit();
+            scenarioContext = scenarioContext;
+            _driver = scenarioContext["WebDriver"] as IWebDriver;
+
+            homePage = new HomePage(_driver);
+            cartPage = new CartPage(_driver);
+            catalogPage = new CatalogPage(_driver);
         }
     }
 }
