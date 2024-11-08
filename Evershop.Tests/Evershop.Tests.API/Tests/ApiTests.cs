@@ -23,16 +23,11 @@ namespace Evershop.Tests.API.Tests
             var response = await app.ApiClient.PostAsync<LoginResponseData>(request);
             _cookies = response.Response.Cookies;
 
-
-            //Assert.That(response.Response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
             response.AssertStatusCode(HttpStatusCode.OK);
 
+            Assert.That(response.Data.Data, Is.Not.Null);
+            Assert.That(response.Data.Data.Sid, Is.Not.Null);
 
-            var jsonResponse = JObject.Parse(response.Response.Content);
-            Assert.That(jsonResponse["data"], Is.Not.Null);
-            Assert.That(jsonResponse["data"]["sid"], Is.Not.Null);
-
-            Assert.IsNotNull(response.Data.Data.Sid);
             _sid = response.Data.Data.Sid;
         }
 
