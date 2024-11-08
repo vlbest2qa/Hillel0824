@@ -13,4 +13,5 @@ namespace Evershop.Tests.API.Models
             public string Sid { get; set; }
         }
     }
+    
 }

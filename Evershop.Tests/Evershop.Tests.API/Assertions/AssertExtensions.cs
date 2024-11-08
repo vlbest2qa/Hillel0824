@@ -1,10 +1,8 @@
 ﻿using System.Net;
-using System.Text;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
-using RestSharp;
 
-namespace Evershop.Tests.API;
+namespace Evershop.Tests.API.Assertions;
 public static class ApiAssertExtensions
 {
     private static List<string> _xmlSchemaValidationErrors;

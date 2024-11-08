@@ -6,12 +6,10 @@ namespace Evershop.Tests.API.Models
     {
         [JsonProperty("data")]
         public ProductData Data { get; set; }
-
         internal class ProductData
         {
             [JsonProperty("uuid")]
             public string Uuid { get; set; }
-
             [JsonProperty("product_description_id")]
             public string ProductDescriptionId { get; set; }
         }
