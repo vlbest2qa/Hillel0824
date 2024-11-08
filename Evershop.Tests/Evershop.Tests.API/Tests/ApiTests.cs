@@ -77,7 +77,7 @@ namespace Evershop.Tests.API.Tests
             request.AddJsonBody(JsonConvert.SerializeObject(product));
 
             // Act
-            var response = await app.ApiClient.PostAsync<LoginResponseData>(request);
+            var response = await app.ApiClient.PostAsync<ProductResponseData>(request);
 
             // Assert
             uuid = response.Data.Data.Uuid;
