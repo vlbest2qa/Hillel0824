@@ -11,6 +11,12 @@ namespace Evershop.Tests.API.Models
         {
             [JsonProperty("sid")]
             public string Sid { get; set; }
+
+            [JsonProperty("uuid")]
+            public string Uuid { get; set; }
+
+            [JsonProperty("product_description_id")]
+            public string ProductDescriptionId { get; set; }
         }
     }
 }
