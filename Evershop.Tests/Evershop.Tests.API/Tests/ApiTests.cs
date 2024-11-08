@@ -1,33 +1,28 @@
-﻿using Evershop.Tests.API.Models;
+﻿using Evershop.Tests.API.Assertions;
+using Evershop.Tests.API.Models;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System.Net;
 
 namespace Evershop.Tests.API.Tests
 {
     [TestFixture]
-    public class ApiTests
+    public class ApiTests : APITest
     {
         private string _sid;
         private CookieCollection _cookies;
-        private string uuid;
-        private App app;
+        private string _uuid;
 
         [SetUp]
         public async Task SetupAsync()
         {
-            app = new App();
-            var request = new RestRequest("http://localhost:3000/admin/user/login", Method.Post);
+            var request = new RestRequest("admin/user/login", Method.Post);
             request.AddJsonBody(new { email = "admin@admin.com", password = "admin123" });
 
-            var response = await app.ApiClient.PostAsync<LoginResponseData>(request);
+            var response = await App.ApiClient.PostAsync<LoginResponseData>(request);
             _cookies = response.Response.Cookies;
 
             response.AssertStatusCode(HttpStatusCode.OK);
-
-            Assert.That(response.Data.Data, Is.Not.Null);
-            Assert.That(response.Data.Data.Sid, Is.Not.Null);
-
+            Assert.IsNotNull(response.Data.Data.Sid);
             _sid = response.Data.Data.Sid;
         }
 
@@ -35,7 +30,7 @@ namespace Evershop.Tests.API.Tests
         public async Task CreateProduct()
         {
             // Arrange
-            var request = new RestRequest("http://localhost:3000/api/products", Method.Post);
+            var request = new RestRequest("api/products", Method.Post);
 
             for (int i = 0; i < _cookies.Count; i++)
             {
@@ -72,33 +67,34 @@ namespace Evershop.Tests.API.Tests
             request.AddJsonBody(JsonConvert.SerializeObject(product));
 
             // Act
-            var response = await app.ApiClient.PostAsync<ProductResponseData>(request);
+            var response = await App.ApiClient.PostAsync<ProductResponseData>(request);
+            _uuid = response.Data.Data.Uuid;
 
             // Assert
-            uuid = response.Data.Data.Uuid;
             response.AssertStatusCode(HttpStatusCode.OK);
-            Assert.That(response.Data.Data, Is.Not.Null);
-            Assert.That(response.Data.Data.ProductDescriptionId, Is.Not.Null);
-            await Console.Out.WriteLineAsync(response.Data.Data.ProductDescriptionId);
+            Assert.IsNotNull(response.Data.Data);
+            Assert.IsNotNull(response.Data.Data.ProductDescriptionId);
             response.AssertExecutionTimeUnder(1);
         }
 
         [TearDown]
         public async Task TearDownAsync()
         {
-            if (uuid != null)
+            if (_uuid != null)
             {
                 // Delete
-                var request = new RestRequest($"http://localhost:3000/api/products/{uuid}", Method.Delete);
+                var request = new RestRequest($"api/products/{_uuid}", Method.Delete);
                 for (int i = 0; i < _cookies.Count; i++)
                 {
                     request.AddCookie(_cookies[i].Name, _cookies[i].Value, _cookies[i].Path, _cookies[i].Domain);
                 }
                 request.AddHeader("Authorization", $"Bearer {_sid}");
-                var response = await app.ApiClient.DeleteAsync(request);
+                var deleteResponse = await App.ApiClient.DeleteAsync(request);
 
-                response.AssertStatusCode(HttpStatusCode.OK);
+                deleteResponse.AssertStatusCode(HttpStatusCode.OK);
             }
+
         }
     }
+
 }
