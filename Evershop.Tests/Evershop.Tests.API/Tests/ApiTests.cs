@@ -1,33 +1,42 @@
-﻿using Newtonsoft.Json;
+﻿using Evershop.Tests.API.Models;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using System.Net;
+using System.Reflection;
 
-namespace Evershop.Tests.API
+namespace Evershop.Tests.API.Tests
 {
     [TestFixture]
     public class ApiTests
     {
-        private RestClient _client;
         private string _sid;
         private CookieCollection _cookies;
         private string uuid;
+        private App app;
 
         [SetUp]
-        public void Setup()
+        public async Task SetupAsync()
         {
-            _client = new RestClient("http://localhost:3000");  // Base URL of the API
-            var request = new RestRequest("admin/user/login", Method.Post);
-            request.AddJsonBody(new { Email = "admin@admin.com", Password = "admin123" });
+            app = new App();
+            var request = new RestRequest("http://localhost:3000/admin/user/login", Method.Post);
+            request.AddJsonBody(new { email = "admin@admin.com", password = "admin123" });
 
-            var response = _client.Execute(request);
-            _cookies = response.Cookies;
+            var response = await app.ApiClient.PostAsync<LoginResponseData>(request);
+            _cookies = response.Response.Cookies;
 
-            Assert.That(response.StatusCode, Is.EqualTo(System.Net.HttpStatusCode.OK));
-            var jsonResponse = JObject.Parse(response.Content);
-            Assert.IsNotNull(jsonResponse["data"]);  // Check if new ID was returned
-            Assert.IsNotNull(jsonResponse["data"]["sid"]);  // Check if new ID was returned
+
+            Assert.That(response.Response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+            response.AssertStatusCode(HttpStatusCode.OK);
+
+
+            var jsonResponse = JObject.Parse(response.Response.Content);
+            Assert.IsNotNull(jsonResponse["data"]);
+            Assert.IsNotNull(jsonResponse["data"]["sid"]);
             _sid = jsonResponse["data"]["sid"].ToString();
+
+            Assert.IsNotNull(response.Data.Data.Sid);
+            _sid = response.Data.Data.Sid;
         }
 
         [Test]
@@ -64,22 +73,22 @@ namespace Evershop.Tests.API
                 GroupId = "1",
                 Attributes =
                 [
-                    new Attribute() { AttributeCode = "color" },
-                    new Attribute() { AttributeCode = "size" }
+                    new Models.Attribute() { AttributeCode = "color" },
+                    new Models.Attribute() { AttributeCode = "size" }
                 ]
             };
             request.AddJsonBody(JsonConvert.SerializeObject(product));
 
             // Act
-            var response = _client.Execute(request);
+            var response = await app.ApiClient.PostAsync(request);
 
             // Assert
-            var jsonResponse = JObject.Parse(response.Content);
+            var jsonResponse = JObject.Parse(response.Response.Content);
             uuid = jsonResponse["data"]["uuid"].ToString();
-            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK), jsonResponse.ToString());
+            Assert.That(response.Response.StatusCode, Is.EqualTo(HttpStatusCode.OK), jsonResponse.ToString());
             Assert.IsNotNull(jsonResponse["data"]);  // Check if new ID was returned
             Assert.IsNotNull(jsonResponse["data"]["product_description_id"]);  // Check if new ID was returned
-            await Console.Out.WriteLineAsync(jsonResponse["data"]["product_description_id"].ToString());
+            Assert.That(response.ExecutionTime, Is.LessThan(TimeSpan.FromMilliseconds(150)));
         }
 
         [TearDown]
@@ -94,10 +103,9 @@ namespace Evershop.Tests.API
                     request.AddCookie(_cookies[i].Name, _cookies[i].Value, _cookies[i].Path, _cookies[i].Domain);
                 }
                 request.AddHeader("Authorization", $"Bearer {_sid}");
+                var response = await app.ApiClient.DeleteAsync(request);
 
-                var response = _client.Execute(request);
-
-                Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+                Assert.That(response.Response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
 
             }
         }
