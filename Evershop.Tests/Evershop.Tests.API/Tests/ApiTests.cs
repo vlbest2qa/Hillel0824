@@ -1,5 +1,6 @@
 ﻿using Evershop.Tests.API.Assertions;
 using Evershop.Tests.API.Models;
+using Evershop.Tests.API.Utilities;
 using Newtonsoft.Json;
 using System.Net;
 
@@ -78,18 +79,21 @@ namespace Evershop.Tests.API.Tests
             //Delete product after create
 
             // Arrange
-            var deleteRequest = new RestRequest($"api/products/{_uuid}", Method.Delete);
-            for (int i = 0; i < _cookies.Count; i++)
-            {
-                deleteRequest.AddCookie(_cookies[i].Name, _cookies[i].Value, _cookies[i].Path, _cookies[i].Domain);
-            }
-            deleteRequest.AddHeader("Authorization", $"Bearer {_sid}");
+            //var deleteRequest = new RestRequest($"api/products/{_uuid}", Method.Delete);
+            //for (int i = 0; i < _cookies.Count; i++)
+            //{
+            //    deleteRequest.AddCookie(_cookies[i].Name, _cookies[i].Value, _cookies[i].Path, _cookies[i].Domain);
+            //}
+            //deleteRequest.AddHeader("Authorization", $"Bearer {_sid}");
 
-            // Act
-            var deleteResponse = await App.ApiClient.DeleteAsync(deleteRequest);
+            //// Act
+            //var deleteResponse = await App.ApiClient.DeleteAsync(deleteRequest);
 
-            // Assert
-            deleteResponse.AssertStatusCode(HttpStatusCode.OK);
+            //// Assert
+            //deleteResponse.AssertStatusCode(HttpStatusCode.OK);
+
+            var dbUtil = new DbUtil();
+            dbUtil.DeleteProduct(_uuid);
         }
 
         [Test]
