@@ -94,6 +94,8 @@ namespace Evershop.Tests.API.Tests
 
             var dbUtil = new DbUtil();
             dbUtil.DeleteProduct(_uuid);
+            //Assert.IsNull(response.Data.Data);
+            //response.AssertStatusCode(HttpStatusCode.NotFound);
         }
 
         [Test]
