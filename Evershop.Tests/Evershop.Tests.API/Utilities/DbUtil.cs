@@ -40,7 +40,7 @@ namespace Evershop.Tests.API.Utilities
                             start_time timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
                             end_time timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
                             test_result varchar(30),
-                            failed_test_exception varchar(200)
+                            failed_test_exception varchar(500)
                         );", conn))
                     {
                         string result = cmd.ExecuteNonQuery().ToString();
