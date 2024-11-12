@@ -25,13 +25,14 @@ public class ExecutionTimeLogInDbPlugin : Plugin
     {
         string testFullName = GetTestFullName(memberInfo);
         DateTime endTime = DateTime.Now;
+        string messageFailedException = TestContext.CurrentContext.Result.Message ?? "";
         if (_testsExecutionTimes.ContainsKey(testFullName))
         {
             var startTime = _testsExecutionTimes[testFullName];
             _testsExecutionTimes.Remove(testFullName);
 
             var dbUtil = new DbUtil();
-            dbUtil.LogTestExecutionTime(testFullName, startTime, endTime, result);
+            dbUtil.LogTestExecutionTime(testFullName, startTime, endTime, result, messageFailedException);
         }
 
     }

@@ -26,7 +26,7 @@ namespace Evershop.Tests.API.Utilities
                 }
             }
         }
-        public void LogTestExecutionTime(string testName, DateTime startTime, DateTime endTime, TestOutcome testResult)
+        public void LogTestExecutionTime(string testName, DateTime startTime, DateTime endTime, TestOutcome testResult, string messageFailedException)
         {
             using (var conn = new NpgsqlConnection(ApiSettings.PostreeSqlConnectionString))
             {
@@ -39,18 +39,20 @@ namespace Evershop.Tests.API.Utilities
                             test_name varchar(200) NOT NULL,
                             start_time timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
                             end_time timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
-                            test_result varchar(30)
+                            test_result varchar(30),
+                            failed_test_exception varchar(500)
                         );", conn))
                     {
                         string result = cmd.ExecuteNonQuery().ToString();
                         Console.WriteLine($"CREATE TABLE public.testruns result, rows affected: {result}");
                     }
-                    using (var cmd = new NpgsqlCommand(@"INSERT INTO public.testruns(test_name, start_time, end_time, test_result)	VALUES (@test_name, @start_time, @end_time, @test_result);", conn))
+                    using (var cmd = new NpgsqlCommand(@"INSERT INTO public.testruns(test_name, start_time, end_time, test_result, failed_test_exception)	VALUES (@test_name, @start_time, @end_time, @test_result, @failed_test_exception);", conn))
                     {
                         cmd.Parameters.AddWithValue("@test_name", testName);
                         cmd.Parameters.AddWithValue("@start_time", startTime);
                         cmd.Parameters.AddWithValue("@end_time", endTime);
                         cmd.Parameters.AddWithValue("@test_result", testResult.ToString());
+                        cmd.Parameters.AddWithValue("@failed_test_exception", messageFailedException);
                         string result = cmd.ExecuteNonQuery().ToString();
                         Console.WriteLine($"INSERT INTO public.testruns, rows affected: {result}");
                     }
