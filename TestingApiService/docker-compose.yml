@@ -1,0 +1,44 @@
+services:
+  app:
+    image: testing-api-service
+    restart: always
+    networks:
+      - myapiservice
+    depends_on:
+      - mariadb
+    ports:
+      - 8080:8080
+  
+  mariadb:
+    image: mariadb:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: testingapi
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - myapiservice
+    # ports:
+    #   - "3306:3306"
+
+  # adminer:
+  #   image: adminer
+  #   container_name: adminer
+  #   environment:
+  #     ADMINER_DEFAULT_SERVER: mariadb
+  #   networks:
+  #     - myapiservice
+  #   restart: always
+  #   ports:
+  #     - "8082:8080"
+
+networks:
+  myapiservice:
+    name: MyApiService
+    driver: bridge
+
+volumes:
+  mysql-data:
