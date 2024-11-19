@@ -1,4 +1,6 @@
 
+using TestingApiService.Settings;
+
 namespace TestingApiService
 {
     public class Program
@@ -29,6 +31,8 @@ namespace TestingApiService
 
 
             app.MapControllers();
+
+            ApiConfigurationLoader.LoadConfiguration();
 
             app.Run();
         }
