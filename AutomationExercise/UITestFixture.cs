@@ -1,6 +1,5 @@
 ﻿using AutomationExercise.Models;
 using Microsoft.Playwright;
-using System.Reflection;
 using System.Text.Json;
 
 namespace AutomationExercise
@@ -95,17 +94,17 @@ namespace AutomationExercise
 
             page = await context.NewPageAsync();
 
-            //await page.GotoAsync("https://ecommerce-playground.lambdatest.io/index.php?route=account/account");
-            //if (!await page.GetByRole(AriaRole.Heading, new() { Name = "My Account" }).IsVisibleAsync())
-            //{
-            //    await page.GetByPlaceholder("E-Mail Address").FillAsync("mymail@gmail.com");
-            //    await page.GetByPlaceholder("Password").FillAsync("test");
-            //    await page.GetByRole(AriaRole.Button, new() { Name = "Login" }).ClickAsync();
-            //    await context.StorageStateAsync(new()
-            //    {
-            //        Path = filePath
-            //    });
-            //}
+            await page.GotoAsync("https://automationexercise.com/login");
+            if (await page.GetByRole(AriaRole.Heading, new() { Name = "Login to your account" }).IsVisibleAsync())
+            {
+                await page.Locator("form").Filter(new() { HasText = "Login" }).GetByPlaceholder("Email Address").FillAsync(emailForUserCreate);
+                await page.GetByPlaceholder("Password").FillAsync(passwordForUserCreate);
+                await page.GetByRole(AriaRole.Button, new() { Name = "Login" }).ClickAsync();
+                await context.StorageStateAsync(new()
+                {
+                    Path = filePath
+                });
+            }
         }
 
         [TearDown]

@@ -1,5 +1,4 @@
-﻿
-using Microsoft.Playwright.NUnit;
+﻿using Microsoft.Playwright.NUnit;
 
 namespace AutomationExercise.Tests;
 
@@ -8,8 +7,8 @@ namespace AutomationExercise.Tests;
 public class CreateAndDeleteUser : UITestFixture
 {
     [Test]
-    public async Task CreateAndDeleteUsers()
+    public async Task CreateAndDeleteUser1()
     {
-        await page.GotoAsync("https://playwright.dev");
+        await page.GotoAsync("https://automationexercise.com/login");
     }
 }
