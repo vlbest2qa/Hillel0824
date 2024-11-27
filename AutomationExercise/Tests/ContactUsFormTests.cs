@@ -9,7 +9,7 @@ namespace AutomationExercise.Tests
     public class ContactUsFormTests : UITestFixture
     {
         [Test]
-        public async Task ValidFillAndSubmitForm()
+        public async Task CheckValidSubmitContactUsForm()
         {
             // Arrange
             var homePage = new HomePage(page);

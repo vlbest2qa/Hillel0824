@@ -7,7 +7,7 @@ namespace AutomationExercise.Tests
     public class SearchProductTests : UITestFixture
     {
         [Test]
-        public async Task ValidFillAndSubmitForm()
+        public async Task CheckSearchResult()
         {
             // Arrange
             var homePage = new HomePage(page);

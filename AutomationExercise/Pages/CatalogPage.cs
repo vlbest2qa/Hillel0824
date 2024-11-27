@@ -35,5 +35,10 @@ namespace AutomationExercise.Pages
             }
             return texts;
         }
+
+        public async Task OpenProductDetail(int productIndex)
+        {
+            await _page.Locator(".choose").Nth(productIndex).ClickAsync();
+        }
     }
 }

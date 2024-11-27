@@ -46,5 +46,10 @@ namespace AutomationExercise.Pages
         {
             return _page.Locator(".alert-success");
         }
+
+        public async Task ClickViewCartInPopup()
+        {
+            await _page.GetByRole(AriaRole.Link, new() { Name = "View Cart" }).ClickAsync();
+        }
     }
 }

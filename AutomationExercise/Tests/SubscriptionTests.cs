@@ -7,7 +7,7 @@ namespace AutomationExercise.Tests
     public class SubscriptionTests : UITestFixture
     {
         [Test]
-        public async Task ValidFillAndSubmitForm()
+        public async Task CheckSubscriptionFormInCartPage()
         {
             // Arrange
             var homePage = new HomePage(page);
