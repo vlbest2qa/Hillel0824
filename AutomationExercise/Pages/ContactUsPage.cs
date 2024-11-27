@@ -12,14 +12,12 @@ namespace AutomationExercise.Pages
 
         public async Task FillContactUsForm(ContactUsForm ContactUsFormModel)
         {
+            var filePath = Path.Combine(TestContext.CurrentContext.TestDirectory, "data", ContactUsFormModel.FileName);
+
             await _page.GetByPlaceholder("Name").FillAsync(ContactUsFormModel.Name ?? "");
             await _page.GetByPlaceholder("Email", new() { Exact = true }).FillAsync(ContactUsFormModel.Email ?? "");
             await _page.GetByPlaceholder("Subject").FillAsync(ContactUsFormModel.Subject ?? "");
             await _page.GetByPlaceholder("Your Message Here").FillAsync(ContactUsFormModel.Massage ?? "");
-
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), ContactUsFormModel.FileName);
-            File.WriteAllText(filePath, ContactUsFormModel.FileText);
-
             await _page.Locator("input[name=\"upload_file\"]").SetInputFilesAsync(new[] { filePath });
         }
 
@@ -28,7 +26,7 @@ namespace AutomationExercise.Pages
             await _page.GetByRole(AriaRole.Button, new() { Name = "Submit" }).ClickAsync();
         }
 
-        public ILocator FormSuccessMassage()
+        public ILocator FormSubmitSuccessMassage()
         {
             return _page.Locator("#contact-page").GetByText("Success! Your details have");
         }
