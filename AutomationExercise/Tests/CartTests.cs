@@ -29,10 +29,15 @@ namespace AutomationExercise.Tests
             await productPage.ClickViewCartInPopup();
 
             // Assert
-            Assert.That(await cartPage.GetQuantityOneProduct(), Is.EqualTo(productQuantity)
+            Assert.That(await cartPage.GetFirstProductQuantity(), Is.EqualTo(productQuantity)
                 , $"Quantity of product in cart does not match the set quantity: {productQuantity}");
+        }
 
-            await cartPage.RemoveProductFromCart();
+        [TearDown]
+        public async Task RemoveProductFromCartAfterTest()
+        {
+            var cartPage = new CartPage(page);
+            await cartPage.RemoveFirstProductFromCart();
         }
     }
 }

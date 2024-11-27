@@ -11,7 +11,6 @@ namespace AutomationExercise.Tests
         {
             // Arrange
             var homePage = new HomePage(page);
-            var email = EmailForUserCreate;
 
             // Act
             await homePage.Open();
@@ -20,7 +19,7 @@ namespace AutomationExercise.Tests
             await homePage.ClickLinkShopMenu("Cart");
 
             await Assertions.Expect(homePage.SubscriptionHeader()).ToBeVisibleAsync();
-            await homePage.FillAndSubmitSubscription(email);
+            await homePage.FillAndSubmitSubscription(TestConstants.EmailForUserCreate);
 
             // Assert
             await Assertions.Expect(homePage.SubscriptionAlertSuccess()).ToBeVisibleAsync();

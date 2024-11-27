@@ -38,6 +38,8 @@ namespace AutomationExercise.Pages
 
                 await _page.Locator(".right recommended-item-control").ClickAsync();
             }
+
+            throw new Exception($"Product with name '{productName}' not found in recommended products.");
         }
     }
 }

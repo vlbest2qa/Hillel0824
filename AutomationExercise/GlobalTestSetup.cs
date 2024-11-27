@@ -6,9 +6,6 @@ namespace AutomationExercise
     [SetUpFixture]
     public class GlobalTestSetup
     {
-        protected string emailForUserCreate => TestConstants.EmailForUserCreate;
-        protected string passwordForUserCreate => TestConstants.PasswordForUserCreate;
-
         [OneTimeSetUp]
         public async Task OneTimeSetUp()
         {
@@ -20,8 +17,8 @@ namespace AutomationExercise
                 var model = new UserCreateRequest
                 {
                     Name = "Vladyslav",
-                    Email = emailForUserCreate,
-                    Password = passwordForUserCreate,
+                    Email = TestConstants.EmailForUserCreate,
+                    Password = TestConstants.PasswordForUserCreate,
                     Title = "Mr",
                     Birth_date = "31",
                     Birth_month = "5",
@@ -61,8 +58,8 @@ namespace AutomationExercise
             {
                 var model = new UserDeleteRequest
                 {
-                    Email = emailForUserCreate,
-                    Password = passwordForUserCreate
+                    Email = TestConstants.EmailForUserCreate,
+                    Password = TestConstants.PasswordForUserCreate
                 };
 
                 var formData = new MultipartFormDataContent();
