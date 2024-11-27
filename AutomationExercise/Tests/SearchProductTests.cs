@@ -11,21 +11,24 @@ namespace AutomationExercise.Tests
         {
             // Arrange
             var homePage = new HomePage(page);
-            var productsPage = new ProductsPage(page);
+            var catalogPage = new CatalogPage(page);
             var searchText = "Men";
 
             // Act
             await homePage.Open();
-            Assert.That(await homePage.GetPageTitle(), Is.EqualTo("Automation Exercise"));
+            await Assertions.Expect(homePage.SliderHomePage()).ToBeVisibleAsync();
+
             await homePage.ClickLinkShopMenu("Products");
             Assert.That(await homePage.GetPageTitle(), Is.EqualTo("Automation Exercise - All Products"));
-            await productsPage.FillSearchInput(searchText);
-            await productsPage.ClickSearchButton();
+            await Assertions.Expect(catalogPage.HeaderAllProducts()).ToBeVisibleAsync();
+
+            await catalogPage.FillSearchInput(searchText);
+            await catalogPage.ClickSearchButton();
 
             // Assert
-            await Assertions.Expect(productsPage.HeaderAfterSearch()).ToBeVisibleAsync();
+            await Assertions.Expect(catalogPage.HeaderAfterSearch()).ToBeVisibleAsync();
 
-            var namesOfProducts = await productsPage.GetTextOfProductsNames();
+            var namesOfProducts = await catalogPage.GetTextOfProductsNames();
             Assert.That(namesOfProducts, Is.Not.Empty, "Number of products after search 0");
 
             foreach (var text in namesOfProducts)

@@ -2,7 +2,7 @@
 
 namespace AutomationExercise.Pages
 {
-    internal class ProductsPage(IPage page) : BasePage(page)
+    internal class CatalogPage(IPage page) : BasePage(page)
     {
         public async Task FillSearchInput(string searchText)
         {
@@ -17,6 +17,11 @@ namespace AutomationExercise.Pages
         public ILocator HeaderAfterSearch()
         {
             return _page.GetByRole(AriaRole.Heading, new() { Name = "Searched Products" });
+        }
+
+        public ILocator HeaderAllProducts()
+        {
+            return _page.GetByRole(AriaRole.Heading, new() { Name = "All Products" });
         }
 
         public async Task<List<string>> GetTextOfProductsNames()

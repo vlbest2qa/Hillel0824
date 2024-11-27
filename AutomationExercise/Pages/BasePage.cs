@@ -30,5 +30,21 @@ namespace AutomationExercise.Pages
                 }
             };
         }
+
+        public ILocator SubscriptionHeader()
+        {
+            return _page.GetByRole(AriaRole.Heading, new() { Name = "Subscription" });
+        }
+        
+        public async Task FillAndSubmitSubscription(string eMail)
+        {
+            await _page.GetByPlaceholder("Your email address").FillAsync(eMail);
+            await _page.Locator("#subscribe").ClickAsync();
+        }
+
+        public ILocator SubscriptionAlertSuccess()
+        {
+            return _page.Locator(".alert-success");
+        }
     }
 }

@@ -7,8 +7,8 @@ namespace AutomationExercise
         public IPage page { get; private set; }
         private IBrowser browser;
         private IBrowserContext context;
-        protected string emailForUserCreate => TestConstants.EmailForUserCreate;
-        protected string passwordForUserCreate => TestConstants.PasswordForUserCreate;
+        protected static string EmailForUserCreate => TestConstants.EmailForUserCreate;
+        protected static string PasswordForUserCreate => TestConstants.PasswordForUserCreate;
 
         [SetUp]
         public async Task Setup()
@@ -52,8 +52,8 @@ namespace AutomationExercise
             await page.GotoAsync("https://automationexercise.com/login");
             if (await page.GetByRole(AriaRole.Heading, new() { Name = "Login to your account" }).IsVisibleAsync())
             {
-                await page.Locator("form").Filter(new() { HasText = "Login" }).GetByPlaceholder("Email Address").FillAsync(emailForUserCreate);
-                await page.GetByPlaceholder("Password").FillAsync(passwordForUserCreate);
+                await page.Locator("form").Filter(new() { HasText = "Login" }).GetByPlaceholder("Email Address").FillAsync(EmailForUserCreate);
+                await page.GetByPlaceholder("Password").FillAsync(PasswordForUserCreate);
                 await page.GetByRole(AriaRole.Button, new() { Name = "Login" }).ClickAsync();
                 await context.StorageStateAsync(new()
                 {

@@ -25,7 +25,7 @@ namespace AutomationExercise.Tests
 
             // Act
             await homePage.Open();
-            Assert.That(await homePage.GetPageTitle(), Is.EqualTo("Automation Exercise"));
+            await Assertions.Expect(homePage.SliderHomePage()).ToBeVisibleAsync();
             await homePage.ClickLinkShopMenu("Contact Us");
             await Assertions.Expect(contactUsPage.PageHeader()).ToBeVisibleAsync();
             await contactUsPage.FillContactUsForm(contactUsFormValidModel);

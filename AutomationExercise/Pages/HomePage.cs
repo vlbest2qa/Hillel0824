@@ -8,5 +8,10 @@ namespace AutomationExercise.Pages
         {
             await _page.GotoAsync("http://automationexercise.com");
         }
+
+        public ILocator SliderHomePage()
+        {
+            return _page.Locator("#slider-carousel");
+        }
     }
 }
