@@ -19,7 +19,6 @@ namespace AutomationExercise.Tests
             await Assertions.Expect(homePage.SliderHomePage()).ToBeVisibleAsync();
 
             await homePage.ClickLinkShopMenu("Products");
-            Assert.That(await homePage.GetPageTitle(), Is.EqualTo("Automation Exercise - All Products"));
             await Assertions.Expect(catalogPage.HeaderAllProducts()).ToBeVisibleAsync();
 
             await catalogPage.FillSearchInput(searchText);

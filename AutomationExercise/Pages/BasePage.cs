@@ -6,11 +6,6 @@ namespace AutomationExercise.Pages
     {
         protected readonly IPage _page = page;
 
-        public async Task<string> GetPageTitle()
-        {
-            return await _page.TitleAsync();
-        }
-
         public async Task ClickLinkShopMenu(string name)
         {
             await _page.GetByRole(AriaRole.Link, new() { Name = name }).ClickAsync();

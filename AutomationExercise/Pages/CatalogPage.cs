@@ -14,14 +14,14 @@ namespace AutomationExercise.Pages
             await _page.Locator("#submit_search").ClickAsync();
         }
 
-        public ILocator HeaderAfterSearch()
-        {
-            return _page.GetByRole(AriaRole.Heading, new() { Name = "Searched Products" });
-        }
-
         public ILocator HeaderAllProducts()
         {
             return _page.GetByRole(AriaRole.Heading, new() { Name = "All Products" });
+        }
+
+        public ILocator HeaderAfterSearch()
+        {
+            return _page.GetByRole(AriaRole.Heading, new() { Name = "Searched Products" });
         }
 
         public async Task<List<string>> GetTextOfProductsNames()

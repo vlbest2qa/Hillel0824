@@ -31,6 +31,8 @@ namespace AutomationExercise.Tests
             // Assert
             Assert.That(await cartPage.GetQuantityOneProduct(), Is.EqualTo(productQuantity)
                 , $"Quantity of product in cart does not match the set quantity: {productQuantity}");
+
+            await cartPage.RemoveProductFromCart();
         }
     }
 }

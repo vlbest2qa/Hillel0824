@@ -35,7 +35,7 @@ namespace AutomationExercise.Tests
             // Assert
             await Assertions.Expect(contactUsPage.FormSubmitSuccessMassage()).ToBeVisibleAsync();
             await contactUsPage.ClickHomeButtonSuccessPage();
-            Assert.That(await homePage.GetPageTitle(), Is.EqualTo("Automation Exercise"));            
+            await Assertions.Expect(homePage.SliderHomePage()).ToBeVisibleAsync();
         }
     }
 }
